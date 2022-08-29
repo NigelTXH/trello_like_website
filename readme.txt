@@ -1,1 +1,8 @@
-FIT2101 readme file for isam0003
+FIT2101 Project Group D6
+
+Members:
+- Brandon Hoong Tak Yong
+-
+-
+-
+-
