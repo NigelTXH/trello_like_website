@@ -9,7 +9,7 @@ class Database:
     Connects to the database
     """
     def __init__(self) -> None:
-        conn = sqlite3.connect('webapp.db', isolation_level=None)
+        conn = sqlite3.connect('webapp.db', isolation_level=None, check_same_thread = False)
         cursor = conn.cursor()
         self.cursor = cursor
         self.conn = conn
@@ -53,18 +53,18 @@ class Database:
     appdb.register("user1", "ps1")
     appdb.register("user2", "ps2","user@gmail.com")
     """
-    def login_user(self,username,password):
+    def login_user(self,email,password):
         try:
-            username = parse(username)
+            email = parse(email)
             password = parse(password)
-            sql = 'SELECT * FROM USER where (user_username = '+username+'and user_password = '+ password +')'
+            sql = 'SELECT * FROM USER where (user_email = '+email+'and user_password = '+ password +')'
             self.cursor.execute(sql)
         except Exception as e:
             print(e)
         if self.cursor.fetchall():
-            return True
+            return self.cursor.fetchall()
         else:
-            return "Username or password does not match"
+            return None
 
     """
     Creates new workspace if workspace name is unique 

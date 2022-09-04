@@ -11,7 +11,8 @@ def test_page():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form.get("email") != "email@email.com" or request.form.get("password") != "password":
+        # if request.form.get("email") != "email@email.com" or request.form.get("password") != "password":
+        if appDb.login_user(request.form.get("email"), request.form.get("password")) is None :
             error = "Invalid credentials"
         else:
             return redirect("/")
