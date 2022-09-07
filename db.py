@@ -1,5 +1,9 @@
 import sqlite3
-
+"""
+For all functions, you can print it to see the error
+Example:
+    print(db.update_card("user_id","4",1))
+"""
 
 def parse(string):
     return '"' + string + '"'
@@ -11,8 +15,10 @@ class Database:
     def __init__(self) -> None:
         conn = sqlite3.connect('webapp.db', isolation_level=None, check_same_thread = False)
         cursor = conn.cursor()
-        self.cursor = cursor
         self.conn = conn
+        self.cursor = cursor
+        self.cursor.execute("PRAGMA foreign_keys = ON")
+
 
     """
     Removes all records from all tables
@@ -28,8 +34,8 @@ class Database:
             (Optional) String     email   
     Output: None
     Example: 
-    appdb.register("user1", "ps1")
-    appdb.register("user2", "ps2","user@gmail.com")
+        appdb.register("user1", "ps1")
+        appdb.register("user2", "ps2","user@gmail.com")
     """
     def create_user(self,username,password,email=None):
 
@@ -45,8 +51,8 @@ class Database:
             String              password
     Output: Boolean
     Example: 
-    appdb.register("user1", "ps1")
-    appdb.register("user2", "ps2","user@gmail.com")
+        appdb.register("user1", "ps1")
+        appdb.register("user2", "ps2","user@gmail.com")
     """
     def login_user(self,email,password):
         try:
@@ -75,12 +81,40 @@ class Database:
     """
     Creates new task card
     The only compulsory field is card_name, rest defaults to Null if left blank
-    
+    Currently doesn't allow insertion of list_id, user_id, sprint_id with the creation of card
     """
     def create_card(self,card_name,card_tag=None,card_priority=None,card_storypoint=None,card_description=None,card_status=None):
         try:
             self.cursor.execute("insert into card (card_name,card_tag,card_priority,card_storypoint,card_description,card_status) VALUES (?,?,?,?,?,?)",(card_name,card_tag,card_priority,card_storypoint,card_description,card_status))
         except Exception as e:
+            return e
+
+    """
+    Updates
+    Currently not so code friendly
+    Example: 
+    appdb.update_card("card_name", "updated_name1",1)
+        Change card_name = updated_name1 for card with ID of 1
+    """
+    def update_card(self ,field, value, card_id) :
+        try :
+            self.cursor.execute(
+                "Update card set "+field+ " = '"+ value +"' where card_id =" + str(card_id))
+        except Exception as e :
+            return e
+
+    """
+    Deletes a card
+    Currently only allows deletion based on card_id
+    Example: 
+    appdb.delete_card(1)
+        Delete card with ID of 1
+    """
+    def delete_card(self , card_id) :
+        try :
+            self.cursor.execute(
+                "Delete from card where card_id = "+ str(card_id))
+        except Exception as e :
             return e
 
 
