@@ -18,7 +18,7 @@ class Database:
     Removes all records from all tables
     """
     def clean_db(self):
-        sql = "DELETE from List; DELETE from card; DELETE from Sprint; DELETE from UserTimer;DELETE from sqlite_sequence;DELETE from UserWorkspace;DELETE from User;DELETE from Workspace"
+        sql = "DELETE from List; DELETE from card; DELETE from Sprint; DELETE from UserTimer;DELETE from sqlite_sequence;DELETE from UserWorkspace;DELETE from User;DELETE from Workspace;DELETE from sqlite_sequence"
         self.cursor.executescript(sql)
 
     """
@@ -32,16 +32,11 @@ class Database:
     appdb.register("user2", "ps2","user@gmail.com")
     """
     def create_user(self,username,password,email=None):
-        username = parse(username)
-        password = parse(password)
+
         try:
-            if email == None:
-                sql = "insert into User ('user_username','user_password') VALUES (" + username + ',' + password +')'
-            else:
-                email = parse(email)
-                sql = "insert into User ('user_username','user_password','user_email') VALUES ("+username+','+password+','+email+')'
-            self.cursor.execute(sql)
+            self.cursor.execute("insert into User (user_username,user_password,user_email) VALUES (?,?,?)",(username,password,email))
         except Exception as e:
+            print(e)
             return "Duplicate username or password"
 
     """
@@ -75,7 +70,23 @@ class Database:
             sql = "insert into Workspace ('work_name') VALUES (" + work_name +')'
             self.cursor.execute(sql)
         except Exception as e:
-            return "Choose a different workspace name"
+            return e
+
+    """
+    Creates new task card
+    The only compulsory field is card_name, rest defaults to Null if left blank
+    
+    """
+    def create_card(self,card_name,card_tag=None,card_priority=None,card_storypoint=None,card_description=None,card_status=None):
+        try:
+            self.cursor.execute("insert into card (card_name,card_tag,card_priority,card_storypoint,card_description,card_status) VALUES (?,?,?,?,?,?)",(card_name,card_tag,card_priority,card_storypoint,card_description,card_status))
+        except Exception as e:
+            return e
 
 
 
+
+
+
+# db = Database()
+# db.clean_db()
