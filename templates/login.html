@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="center">
+<div class="login-page">
     <h1>Login to Scrum King &#10024;</h1>
     <form method="POST">
       <div class="txt_field">
@@ -21,11 +21,11 @@
       <div class="pass">Forgot Password?</div>
       <input type="submit" value="Login">
       <div class="signup_link">
-        don't have an account? <a href="#">Signup now!</a>
+        don't have an account? <a href="http://127.0.0.1:5000/signup">Signup now!</a>
       </div>
     </form>
     {% if error %}
-      <p class="error"><strong>Error:</strong> {{ error }}
+    <p class="error"><strong>Error:</strong> {{ error }}
     {% endif %}
-  </div>
+</div>
 {% endblock %}
