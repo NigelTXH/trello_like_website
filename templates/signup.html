@@ -6,27 +6,29 @@
 
 {% block body %}
 <div class="signup_page">
-    <h1>Sign up to Scrum King &#10024;</h1>
-    <form method="POST">
-      <div class="txt_field">
-        <input type="text" name="name" required>
-        <span></span>
-        <label>Name</label>
-      </div>  
-      <div class="txt_field">
-        <input type="email" name="email" required>
-        <span></span>
-        <label>Email</label>
-      </div>
-      <div class="txt_field">
-        <input type="password", name="password" required>
-        <span></span>
-        <label>Password</label>
-      </div>
-      <input type="submit" value="Sign Up">
-    </form>
-    {% if error %}
-    <p class="error"><strong>Error:</strong> {{ error }}
-    {% endif %}
+  <div class="content_box">
+      <h1>Sign up to Scrum King &#10024;</h1>
+      <form method="POST">
+        <div class="txt_field">
+          <input type="text" name="name" required>
+          <span></span>
+          <label>Name</label>
+        </div>  
+        <div class="txt_field">
+          <input type="email" name="email" required>
+          <span></span>
+          <label>Email</label>
+        </div>
+        <div class="txt_field">
+          <input type="password", name="password" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <input type="submit" value="Sign Up">
+      </form>
+      {% if error %}
+      <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+  </div>
 </div>
 {% endblock %}
