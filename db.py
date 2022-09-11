@@ -83,9 +83,9 @@ class Database:
     The only compulsory field is card_name, rest defaults to Null if left blank
     Currently doesn't allow insertion of list_id, user_id, sprint_id with the creation of card
     """
-    def create_card(self,card_name,card_tag=None,card_priority=None,card_storypoint=None,card_description=None,card_status=None):
+    def create_card(self,card_name,card_tag=None,card_priority=None,card_storypoint=None,card_description=None,card_status=None,card_type=None):
         try:
-            self.cursor.execute("insert into card (card_name,card_tag,card_priority,card_storypoint,card_description,card_status) VALUES (?,?,?,?,?,?)",(card_name,card_tag,card_priority,card_storypoint,card_description,card_status))
+            self.cursor.execute("insert into card (card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type) VALUES (?,?,?,?,?,?,?)",(card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type))
         except Exception as e:
             return e
 
@@ -99,7 +99,7 @@ class Database:
     def update_card(self ,field, value, card_id) :
         try :
             self.cursor.execute(
-                "Update card set "+field+ " = '"+ value +"' where card_id =" + str(card_id))
+                "Update card set "+field+ " = '"+ str(value) +"' where card_id =" + str(card_id))
         except Exception as e :
             return e
 
@@ -117,7 +117,31 @@ class Database:
         except Exception as e :
             return e
 
+    """
+    Fetches all cards
+    Returns:
+        A list of tuples where each tuple is a card
+    """
+    def all_cards(self ) :
+        try :
+            self.cursor.execute(
+                "SELECT * from CARD")
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
 
+    """
+    Fetches all cards linked to a user
+    Returns:
+        A list of tuples where each tuple is a card
+    """
+    def all_usercards(self, user_id) :
+        try :
+            self.cursor.execute(
+                "SELECT * from CARD where user_id = "+ str(user_id))
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
 
 
 
