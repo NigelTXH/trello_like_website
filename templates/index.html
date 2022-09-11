@@ -1,17 +1,88 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>Testing Page</title>
+<title>Product Backlog</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 {% endblock %}
 
 {% block body %}
-<div class="product-backlog">
-    <h1>Product Backlog &#10024;</h1>
-    <ul>
-        <li><a href="http://127.0.0.1:5000/">Product Backlog</a></li>
-        <li><a href="SprintBoard.asp">Sprint Board</a></li>
-        <li><a href="Calender.asp">Calender</a></li>
-        <li><a href="Team.asp">Team</a></li>
-    </ul>
+<div class="product_backlog">
+    <h1>Product Backlog &#128081;</h1>
+    <input type="checkbox" id="add_task_check">
+    <label for="add_task_check" class="show_add_task_btn">Add Task</label>
+    <div class="add_task_form">
+      <label for="add_task_check" class="close-btn fas fa-times"></label>
+      <div class="text">Add Task</div>
+      <form method="POST">
+        <div class="txt_field">
+          <input type="text" name="taskname" required>
+          <span></span>
+          <label>Task Name</label>
+        </div>
+        <div class="description_field">
+            <textarea name="" id="" cols="30" rows="10" type="text" name="taskdescription" placeholder="Description"></textarea>
+            <span></span>   
+        </div>
+        <div class="task_type">
+            <label for="type">Choose Task Type</label>
+            <select id="type" name="tasktype">
+                <option value="Story" selected>User Story</option>
+                <option value="Bug">Bug</option>
+            </select>
+        </div>
+        <div class="task_tag">
+            <label for="tag">Choose Task Tag</label>
+            <select id="tag" name="tasktag">
+                <option value="Core" selected>Core</option>
+                <option value="UI">UI</option>
+                <option value="Testing">Testing</option>
+            </select>
+        </div>
+        <div class="task_priority">
+            <label for="priority">Choose Task Priority</label>
+            <select id="priority" name="taskpriority">
+                <option value="Low" selected>Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+            </select>
+        </div>
+        <div class="task_story_point">
+            <label for="story_point">Task Status</label>
+            <select id="story_point" name="taskstorypoint">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <div class="task_status">
+            <label for="status">How many story points</label>
+            <select id="status" name="taskstatus">
+                <option value="To do" selected>To do</option>
+                <option value="Doing">Doing</option>
+                <option value="Done">Done</option>
+            </select>
+        </div>
+        <br>
+        <input type="submit" value="Create Task">
+      </form>
+    </div>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>            
+    </label>
+    <div class="sidebar">
+        <header>Navigation Menu</header>
+        <ul>
+            <li><a href="http://127.0.0.1:5000/">Backlog &#128081</a></li>
+            <li><a href="">Sprint Board &#127939</a></li>
+            <li><a href="">Calender &#8987</a></li>
+            <li><a href="">Team Manager &#128587</a></li>
+        </ul>
+    </div>
 </div>
 {% endblock %}
