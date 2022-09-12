@@ -3,9 +3,24 @@ import db
 appDb = db.Database()
 app = Flask(__name__)
 
-@app.route("/")
-def test_page():
-    return render_template("index.html")
+@app.route("/", methods=['POST', 'GET'])
+def product_backlog():
+    if request.method == "POST":
+        card_name = request.form.get("taskname")    
+        card_tag = request.form.get("tasktag")   
+        card_priority = request.form.get("taskpriority")
+        card_storypoint = request.form.get("taskstorypoint")
+        card_description = request.form.get("taskdescription") 
+        card_status = request.form.get("taskstatus")
+        card_type = request.form.get("tasktype")
+        try:
+            appDb.create_card(card_name, card_tag, card_priority, card_storypoint, card_description, card_status, card_type)
+            return redirect("/")
+        except:
+            return "There was an issue addind your task!"
+    else:
+        tasks = appDb.all_cards()
+        return render_template("index.html", tasks=tasks)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -27,41 +42,14 @@ def signup():
             return redirect("/login")
     return render_template('signup.html', error=error)
 
-@app.route('/create/', methods = ['GET', 'POST'])
-def create():
-    if request.method == "GET":
-        # not sure where to render this page on since i couldnt find html template that contain create 
-        return render_template('createpage.html')
-    if request.method == "POST":
-        card_name = request.form['card_name']
-        card_tag = request.form['card_tag']
-        card_priority = request.form['card_priority']
-        card_storypoint = request.form['card_storypoint']
-        card_description = request.form['card_description']
-        card_status = request.form['card_status']
-        card_type = request.form['card_type']
-        list_id = request.form['list_id']
-        user_id = request.form['user_id']
-        sprint_id = request.form['sprint_id']
-        card_start = request.form['card_start']
-        card_stop = request.form['card_stop']
-        card_elapsed = request.form['card_elapsed']
-
-        
-        appDb.create_card(card_name, card_tag, card_priority, card_storypoint, card_description, card_status, card_type, list_id, user_id, sprint_id, card_start, card_stop, card_elapsed)
-        return redirect('/')
-
-@app.route("/delete/<int:id>")
+@app.route('/delete/<int:id>')
 def delete(id):
-    error = None
-
     try:
         appDb.delete_card(id)
         return redirect('/')
-    
     except:
-        error = "There was a problem deleting that task"
-    return render_template('index.html', error = error) 
+        return 'There was a problem deleting that task'
 
 if __name__ == "__main__":
     app.run(debug=True)
+    appDb.clean_db()

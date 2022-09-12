@@ -250,6 +250,8 @@ input[type="submit"]:hover{
   height: 100%;
   background: linear-gradient(120deg,#df9f15, #d44def);
   transition: all .5s ease;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
 }
 .product_backlog .sidebar header{
   font-size: 25px;
@@ -386,4 +388,70 @@ label #cancel{
 .add_task_form .description_field{
   position: relative;
   margin: 30px 0;
+}
+.task_box {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 0.5fr));
+  grid-row: 150px;
+  padding: 10px;
+  gap: 20px;
+  justify-content: center;
+  overflow: auto;
+  max-height: 90%;
+  margin-top: 10px;
+}
+.task_box .miniature_card{
+  width: 270px;
+  background-color: #fff;
+  justify-content: left;
+  align-items: left;
+  text-align: left;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px;
+  overflow: auto;
+}
+.miniature_card i{
+  font-size: 22px !important;
+  color: red;
+}
+.miniature_card .name{
+font-size: 22px;
+color: #464e56;
+font-weight: 600;
+}
+.miniature_card .quote2{
+font-size: 15px;
+font-weight: 500;
+color: #868e94;
+}
+.line span { 
+  display:block; 
+  width:20%; 
+  float:left; 
+  height:5px;
+  margin-top: 20px;
+  height: 30px;
+}
+.line{
+    width:100%;
+}
+.color-1{
+    background: limegreen;
+}
+.color-2{
+    background:greenyellow;
+}
+.color-3{
+    background:yellow;
+}
+.color-4{
+    background:orange;
+}
+.color-5{
+    background:red;
+}
+.miniature_card:hover{
+  transform: scale(1.05);
+  transition: 0.4s ease-in-out;
 }

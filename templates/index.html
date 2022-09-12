@@ -20,18 +20,18 @@
           <label>Task Name</label>
         </div>
         <div class="description_field">
-            <textarea name="" id="" cols="30" rows="10" type="text" name="taskdescription" placeholder="Description"></textarea>
+            <textarea cols="30" rows="10" type="text" name="taskdescription" placeholder="Description"></textarea>
             <span></span>   
         </div>
         <div class="task_type">
-            <label for="type">Choose Task Type</label>
+            <label for="type">Task Type</label>
             <select id="type" name="tasktype">
                 <option value="Story" selected>User Story</option>
                 <option value="Bug">Bug</option>
             </select>
         </div>
         <div class="task_tag">
-            <label for="tag">Choose Task Tag</label>
+            <label for="tag">Task Tag</label>
             <select id="tag" name="tasktag">
                 <option value="Core" selected>Core</option>
                 <option value="UI">UI</option>
@@ -39,7 +39,7 @@
             </select>
         </div>
         <div class="task_priority">
-            <label for="priority">Choose Task Priority</label>
+            <label for="priority">Task Priority</label>
             <select id="priority" name="taskpriority">
                 <option value="Low" selected>Low</option>
                 <option value="Medium">Medium</option>
@@ -48,18 +48,17 @@
             </select>
         </div>
         <div class="task_story_point">
-            <label for="story_point">Task Status</label>
+            <label for="story_point">Story Points</label>
             <select id="story_point" name="taskstorypoint">
                 <option value="1" selected>1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-                <option value="6">6</option>
             </select>
         </div>
         <div class="task_status">
-            <label for="status">How many story points</label>
+            <label for="status">Task Status</label>
             <select id="status" name="taskstatus">
                 <option value="To do" selected>To do</option>
                 <option value="Doing">Doing</option>
@@ -83,6 +82,62 @@
             <li><a href="">Calender &#8987</a></li>
             <li><a href="">Team Manager &#128587</a></li>
         </ul>
+    </div>
+    <div class="task_box">
+        {% for task in tasks %}
+            <div class="miniature_card">
+                <a href="/delete/{{task[0]}}">Delete</a>
+                <a href="/update/{{task[0]}}">Edit</a>
+                {% if task[6] == "To do" %}
+                    <div><i class="fa fa-exclamation-circle" style="color:red; margin-top: 5px;"></i></div>
+                {% elif task[6] == "Doing" %}
+                    <div><i class="fa fa-ellipsis-h" style="color: yellow; margin-top: 5px;"></i></div>
+                {% else %}
+                    <div><i class="fa fa-check" style="color:green; margin-top: 5px;"></i></div>
+                {% endif %}
+                <div class="card_text">
+					<h3 class="name">{{task[1]}}</h3>
+                    <br>
+				</div>
+                <div class="tag_type_priority">
+					<i class="fa fa-id-card"></i>
+					<span class="quote2">Type: {{task[13]}}</span>
+                    <br>
+                    <i class="fa fa-tags"></i>
+					<span class="quote2">Tag: {{task[2]}}</span>
+                    <br>
+					<i class="fa fa-calendar"></i>
+					<span class="quote2">Priority: {{task[3]}}</span>
+                    <br>
+					<i class="fa fa-user-circle"></i>
+					<span class="quote2">Assignee:</span>
+                    <br>
+                    <div class="line">
+                        {% if task[4] == "1" %}
+                            <span class="color-1"></span>
+                        {% elif task[4] == "2" %}
+                            <span class="color-1"></span>
+                            <span class="color-2"></span>
+                        {% elif task[4] == "3" %}
+                            <span class="color-1"></span>
+                            <span class="color-2"></span>
+                            <span class="color-3"></span>
+                        {% elif task[4] == "4" %}
+                            <span class="color-1"></span>
+                            <span class="color-2"></span>
+                            <span class="color-3"></span>
+                            <span class="color-4"></span>
+                        {% else %}
+                            <span class="color-1"></span>
+                            <span class="color-2"></span>
+                            <span class="color-3"></span>
+                            <span class="color-4"></span>
+                            <span class="color-5"></span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
