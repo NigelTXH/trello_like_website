@@ -95,8 +95,6 @@
     <div class="task_box">
         {% for task in tasks %}
             <div class="miniature_card">
-                <a href="/delete/{{task[0]}}">Delete</a>
-                <a href="/update/{{task[0]}}">Edit</a>
                 {% if task[6] == "To do" %}
                     <div><i class="fa fa-exclamation-circle" style="color:red; margin-top: 5px;"></i></div>
                 {% elif task[6] == "Doing" %}
@@ -145,6 +143,11 @@
                         {% endif %}
                     </div>
                 </div>
+                <br>
+                <br>
+                <br>
+                <a href="/delete/{{task[0]}}">Delete</a>
+                <a href="/update/{{task[0]}}">Edit</a>
             </div>
         {% endfor %}
     </div>

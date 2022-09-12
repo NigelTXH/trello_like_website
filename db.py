@@ -168,11 +168,19 @@ class Database:
             return self.cursor.fetchall()[1]
         except Exception as e :
             return e
+    
+    def fetch_password(self, user_email) :
+        try :
+            self.cursor.execute("SELECT user_password from user where user_email = "+parse(user_email))
+            return self.cursor.fetchall()[0][0]
+        except Exception as e :
+            return e
+
 
     """
     checks if user email is valid
     Returns:
-        A tuple with information of a user
+    A tuple with information of a user
     """
     def check_email(self, user_email) :
         try :

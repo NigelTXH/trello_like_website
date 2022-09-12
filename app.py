@@ -1,7 +1,18 @@
 from flask import Flask, render_template, url_for, request, redirect
+from flask_mail import Mail, Message
 import db
 appDb = db.Database()
 app = Flask(__name__)
+
+mail= Mail(app)
+
+app.config['MAIL_SERVER']='smtp-mail.outlook.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'mytestfunc@outlook.com'
+app.config['MAIL_PASSWORD'] = 'FIT_2101'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
 
 @app.route("/", methods=['POST', 'GET'])
 def product_backlog():
@@ -54,6 +65,20 @@ def delete(id):
         return redirect('/')
     except:
         return 'There was a problem deleting that task'
+
+@app.route("/forgotpassword", methods=['GET', 'POST'])
+def forgot_password():
+    error = None
+    if request.method == 'POST':
+        print(appDb.check_email(request.form.get("email")))
+        if appDb.check_email(request.form.get("email")) is None :
+            error = "Invalid email"
+        else:
+            msg = Message('Scrum King Password', sender = 'mytestfunc@outlook.com', recipients = [request.form.get("email")])
+            msg.body = "Your password: "+appDb.fetch_password(request.form.get("email"))+""
+            mail.send(msg)
+            return redirect("/login")
+    return render_template('forgotpassword.html', error=error)
 
 if __name__ == "__main__":
     app.run(debug=True)
