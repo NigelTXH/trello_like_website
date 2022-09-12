@@ -144,6 +144,19 @@ class Database:
             return e
 
     """
+    Fetches all users 
+    Returns:
+        A list of tuples where each tuple is a user
+    """
+    def all_users(self) :
+        try :
+            self.cursor.execute(
+                "SELECT * from user")
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
+
+    """
     Fetches all information of a card
     Returns:
         A tuple with information of a card
