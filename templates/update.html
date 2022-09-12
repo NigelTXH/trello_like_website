@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Task Update Page</title>
+{% endblock %}
+
+{% block body %}
+<div class="update_page">
+    <div class="update_task_form">
+        <div class="text">Update Task</div>
+        <form method="POST">
+        <div class="txt_field">
+            <input type="text" name="taskname" required>
+            <span></span>
+            <label>Task Name</label>
+        </div>
+        <div class="description_field">
+            <textarea cols="30" rows="10" type="text" name="taskdescription" placeholder="Description"></textarea>
+            <span></span>   
+        </div>
+        <div class="task_type">
+            <label for="type">Task Type</label>
+            <select id="type" name="tasktype">
+                <option value="Story" selected>User Story</option>
+                <option value="Bug">Bug</option>
+            </select>
+        </div>
+        <div class="task_tag">
+            <label for="tag">Task Tag</label>
+            <select id="tag" name="tasktag">
+                <option value="Core" selected>Core</option>
+                <option value="UI">UI</option>
+                <option value="Testing">Testing</option>
+            </select>
+        </div>
+        <div class="task_priority">
+            <label for="priority">Task Priority</label>
+            <select id="priority" name="taskpriority">
+                <option value="Low" selected>Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+            </select>
+        </div>
+        <div class="task_story_point">
+            <label for="story_point">Story Points</label>
+            <select id="story_point" name="taskstorypoint">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="task_status">
+            <label for="status">Task Status</label>
+            <select id="status" name="taskstatus">
+                <option value="To do" selected>To do</option>
+                <option value="Doing">Doing</option>
+                <option value="Done">Done</option>
+            </select>
+        </div>
+        <div class="task_assignee">
+            <label for="assignee">Assign Too</label>
+            <select id="assignee" name="taskassignee">
+                <option value="" selected>Nobody</option>
+                {% for user in users %}
+                    <option value="{{ user[1] }}" selected>{{ user[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <input type="submit" value="Update Task">
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

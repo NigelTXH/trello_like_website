@@ -80,5 +80,38 @@ def forgot_password():
             return redirect("/login")
     return render_template('forgotpassword.html', error=error)
 
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_task(id):
+    users = appDb.all_users()
+    details = appDb.select_card(id)
+    if request.method == "POST":
+        card_name = request.form.get("taskname")    
+        card_tag = request.form.get("tasktag")   
+        card_priority = request.form.get("taskpriority")
+        card_storypoint = request.form.get("taskstorypoint")
+        card_description = request.form.get("taskdescription") 
+        card_status = request.form.get("taskstatus")
+        card_type = request.form.get("tasktype")
+        if  request.form.get("taskassignee") == "":
+            card_assignee = None
+        else:
+             card_assignee = request.form.get("taskassignee")
+        try:
+            appDb.update_card("card_name", card_name, id)
+            appDb.update_card("card_tag", card_tag, id)
+            appDb.update_card("card_type", card_type, id)
+            appDb.update_card("card_priority", card_priority, id)
+            appDb.update_card("card_storypoint", card_storypoint, id)
+            appDb.update_card("card_description", card_description, id)
+            appDb.update_card("card_status", card_status, id)
+            appDb.update_card("card_assignee", card_assignee, id)
+            return redirect("/")
+        except:
+            return "There was an issue addind your task!"
+    else:
+        return render_template("update.html", details=details, users=users)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
