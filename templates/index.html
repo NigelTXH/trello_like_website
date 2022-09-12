@@ -65,6 +65,15 @@
                 <option value="Done">Done</option>
             </select>
         </div>
+        <div class="task_assignee">
+            <label for="assignee">Assign Too</label>
+            <select id="assignee" name="taskassignee">
+                <option value="" selected>Nobody</option>
+                {% for user in users %}
+                    <option value="{{ user[1] }}" selected>{{ user[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
         <br>
         <input type="submit" value="Create Task">
       </form>
@@ -110,7 +119,7 @@
 					<span class="quote2">Priority: {{task[3]}}</span>
                     <br>
 					<i class="fa fa-user-circle"></i>
-					<span class="quote2">Assignee:</span>
+					<span class="quote2">Assignee: {{task[11]}}</span>
                     <br>
                     <div class="line">
                         {% if task[4] == "1" %}

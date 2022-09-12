@@ -83,9 +83,9 @@ class Database:
     The only compulsory field is card_name, rest defaults to Null if left blank
     Currently doesn't allow insertion of list_id, user_id, sprint_id with the creation of card
     """
-    def create_card(self,card_name,card_tag=None,card_priority=None,card_storypoint=None,card_description=None,card_status=None,card_type=None):
+    def create_card(self,card_name,card_tag=None,card_priority=None,card_storypoint=None,card_description=None,card_status=None,card_type=None,list_id=None,user_name=None,sprint_id=None):
         try:
-            self.cursor.execute("insert into card (card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type) VALUES (?,?,?,?,?,?,?)",(card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type))
+            self.cursor.execute("insert into card (card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type,list_id,user_username,sprint_id) VALUES (?,?,?,?,?,?,?,?,?,?)",(card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type,list_id,user_name,sprint_id))
         except Exception as e:
             return e
 
@@ -182,5 +182,5 @@ class Database:
         except Exception as e :
             return e
 
-db = Database()
-db.clean_db()
+#db = Database()
+#db.clean_db()
