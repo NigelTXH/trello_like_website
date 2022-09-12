@@ -143,8 +143,44 @@ class Database:
         except Exception as e :
             return e
 
+    """
+    Fetches all users 
+    Returns:
+        A list of tuples where each tuple is a user
+    """
+    def all_users(self) :
+        try :
+            self.cursor.execute(
+                "SELECT * from user")
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
 
+    """
+    Fetches all information of a card
+    Returns:
+        A tuple with information of a card
+    """
+    def select_card(self, card_id) :
+        try :
+            self.cursor.execute(
+                "SELECT * from CARD where card_id = "+ str(card_id))
+            return self.cursor.fetchall()[1]
+        except Exception as e :
+            return e
 
+    """
+    checks if user email is valid
+    Returns:
+        A tuple with information of a user
+    """
+    def check_email(self, user_email) :
+        try :
+            self.cursor.execute(
+                "SELECT * from user where user_email = "+ str(user_email))
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
 
-# db = Database()
-# db.clean_db()
+db = Database()
+db.clean_db()
