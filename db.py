@@ -156,5 +156,18 @@ class Database:
         except Exception as e :
             return e
 
-# db = Database()
-# db.clean_db()
+    """
+    checks if user email is valid
+    Returns:
+        A tuple with information of a user
+    """
+    def check_email(self, user_email) :
+        try :
+            self.cursor.execute(
+                "SELECT * from user where user_email = "+ str(user_email))
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
+
+db = Database()
+db.clean_db()
