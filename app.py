@@ -14,10 +14,12 @@ def product_backlog():
         card_description = request.form.get("taskdescription") 
         card_status = request.form.get("taskstatus")
         card_type = request.form.get("tasktype")
-        card_assignee = request.form.get("taskassignee")
+        if  request.form.get("taskassignee") == "":
+            card_assignee = None
+        else:
+             card_assignee = request.form.get("taskassignee")
         try:
-            print(card_assignee)
-            appDb.create_card(card_name, card_tag, card_priority, card_storypoint, card_description, card_status, card_type)
+            appDb.create_card(card_name, card_tag, card_priority, card_storypoint, card_description, card_status, card_type, None, card_assignee)
             return redirect("/")
         except:
             return "There was an issue addind your task!"
