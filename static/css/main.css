@@ -90,6 +90,9 @@ cursor: pointer;
 .pass:hover{
 text-decoration: underline;
 }
+.pass a{
+  text-decoration: none;
+}
 input[type="submit"]{
 width: 100%;
 height: 50px;
@@ -401,7 +404,10 @@ label #cancel{
   margin-top: 10px;
 }
 .task_box .miniature_card{
-  width: 270px;
+  width: 290px;
+  max-width: 290px;
+  height: 260px;
+  max-height: 260px;
   background-color: #fff;
   justify-content: left;
   align-items: left;
@@ -409,7 +415,14 @@ label #cancel{
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px;
-  overflow: auto;
+  overflow: hidden;
+  margin-left: 10px;
+  word-wrap: break-word;
+}
+.miniature_card .description{
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
 }
 .miniature_card i{
   font-size: 22px !important;
@@ -453,7 +466,16 @@ color: #868e94;
 }
 .miniature_card:hover{
   transform: scale(1.05);
-  transition: 0.4s ease-in-out;
+  transition: 500ms ease;
+}
+.miniature_card:hover .front_facing{
+  transform: translateY(150%);
+  transition: 500ms ease;
+}
+.miniature_card:hover .back_facing{
+  transform: translateY(0%);
+  transition: 500ms ease;
+  display: contents;
 }
 .miniature_card a{
   margin-right: 10px;
@@ -463,7 +485,10 @@ color: #868e94;
 .miniature_card a:hover{
  color: blue;
 }
-
+.back_facing{
+  transform: translateY(0%);
+  display: none;
+}
 /* forgotpassword page styles */
 
 .forgotpassword_page{
