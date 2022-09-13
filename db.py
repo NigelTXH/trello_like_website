@@ -165,7 +165,7 @@ class Database:
         try :
             self.cursor.execute(
                 "SELECT * from CARD where card_id = "+ str(card_id))
-            return self.cursor.fetchall()[1]
+            return self.cursor.fetchall()[0]
         except Exception as e :
             return e
     
