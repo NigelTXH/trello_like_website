@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Task Update Page</title>
+{% endblock %}
+
+{% block body %}
+<div class="update_page">
+    <div class="update_task_form">
+        <div class="text">Update Task</div>
+        <form method="POST">
+        <div class="txt_field">
+            <input type="text" name="taskname" value="{{details[1]}}" required>
+            <span></span>
+            <label>Task Name</label>
+        </div>
+        <div class="description_field">
+            <textarea cols="30" rows="10" type="text" name="taskdescription" placeholder="{{details[5]}}"></textarea>
+            <span></span>   
+        </div>
+        {% if details[13] == "Story" %}
+            <div class="task_type">
+                <label for="type">Task Type</label>
+                <select id="type" name="tasktype">
+                    <option value="Story" selected>User Story</option>
+                    <option value="Bug">Bug</option>
+                </select>
+            </div>
+        {% else %}
+            <div class="task_type">
+                <label for="type">Task Type</label>
+                <select id="type" name="tasktype">
+                    <option value="Story">User Story</option>
+                    <option value="Bug" selected>Bug</option>
+                </select>
+            </div>
+        {% endif %}
+        {% if details[2] == "Core" %}
+            <div class="task_tag">
+                <label for="tag">Task Tag</label>
+                <select id="tag" name="tasktag">
+                    <option value="Core" selected>Core</option>
+                    <option value="UI">UI</option>
+                    <option value="Testing">Testing</option>
+                </select>
+            </div>
+        {% elif details[2] == "UI" %}
+            <div class="task_tag">
+                <label for="tag">Task Tag</label>
+                <select id="tag" name="tasktag">
+                    <option value="Core">Core</option>
+                    <option value="UI" selected>UI</option>
+                    <option value="Testing">Testing</option>
+                </select>
+            </div>
+        {% else %}
+            <div class="task_tag">
+                <label for="tag">Task Tag</label>
+                <select id="tag" name="tasktag">
+                    <option value="Core">Core</option>
+                    <option value="UI">UI</option>
+                    <option value="Testing" selected>Testing</option>
+                </select>
+            </div>
+        {% endif %}
+        {% if details[3] == "Low" %}
+            <div class="task_priority">
+                <label for="priority">Task Priority</label>
+                <select id="priority" name="taskpriority">
+                    <option value="Low" selected>Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
+                </select>
+            </div>
+        {% elif details[3] == "Medium" %}
+            <div class="task_priority">
+                <label for="priority">Task Priority</label>
+                <select id="priority" name="taskpriority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
+                </select>
+            </div>
+        {% elif details[3] == "High" %}
+            <div class="task_priority">
+                <label for="priority">Task Priority</label>
+                <select id="priority" name="taskpriority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High" selected>High</option>
+                    <option value="Critical">Critical</option>
+                </select>
+            </div>
+        {% else %}
+            <div class="task_priority">
+                <label for="priority">Task Priority</label>
+                <select id="priority" name="taskpriority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical" selected>Critical</option>
+                </select>
+            </div>
+        {% endif %}
+        {% if details[4] == "1" %}
+            <div class="task_story_point">
+                <label for="story_point">Story Points</label>
+                <select id="story_point" name="taskstorypoint">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        {% elif details[4] == "2" %}
+            <div class="task_story_point">
+                <label for="story_point">Story Points</label>
+                <select id="story_point" name="taskstorypoint">
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        {% elif details[4] == "3" %}
+            <div class="task_story_point">
+                <label for="story_point">Story Points</label>
+                <select id="story_point" name="taskstorypoint">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        {% elif details[4] == "4" %}
+            <div class="task_story_point">
+                <label for="story_point">Story Points</label>
+                <select id="story_point" name="taskstorypoint">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected>4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        {% else %}
+            <div class="task_story_point">
+                <label for="story_point">Story Points</label>
+                <select id="story_point" name="taskstorypoint">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                </select>
+            </div>
+        {% endif %}
+        {% if details[6] == "To do" %}
+            <div class="task_status">
+                <label for="status">Task Status</label>
+                <select id="status" name="taskstatus">
+                    <option value="To do" selected>To do</option>
+                    <option value="Doing">Doing</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+        {% elif details[6] == "Doing" %}
+            <div class="task_status">
+                <label for="status">Task Status</label>
+                <select id="status" name="taskstatus">
+                    <option value="To do">To do</option>
+                    <option value="Doing" selected>Doing</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+        {% else %}
+        <div class="task_status">
+            <label for="status">Task Status</label>
+            <select id="status" name="taskstatus">
+                <option value="To do">To do</option>
+                <option value="Doing">Doing</option>
+                <option value="Done" selected>Done</option>
+            </select>
+        </div>
+        {% endif %}
+        <div class="task_assignee">
+            <label for="assignee">Assign Too</label>
+            <select id="assignee" name="taskassignee">
+                <option value="" selected>Nobody</option>
+                {% for user in users %}
+                    <option value="{{ user[1] }}" selected>{{ user[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <input type="submit" value="Update Task">
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

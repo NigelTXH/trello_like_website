@@ -165,20 +165,27 @@ class Database:
         try :
             self.cursor.execute(
                 "SELECT * from CARD where card_id = "+ str(card_id))
-            return self.cursor.fetchall()[1]
+            return self.cursor.fetchall()[0]
+        except Exception as e :
+            return e
+    
+    def fetch_password(self, user_email) :
+        try :
+            self.cursor.execute("SELECT user_password from user where user_email = "+parse(user_email))
+            return self.cursor.fetchall()[0][0]
         except Exception as e :
             return e
 
     """
-    checks if user email is valid
-    Returns:
+        checks if user email is valid
+        Returns:
         A tuple with information of a user
     """
     def check_email(self, user_email) :
         try :
             self.cursor.execute(
-                "SELECT * from user where user_email = "+ str(user_email))
-            return self.cursor.fetchall()
+                "SELECT * from user where user_email = "+ parse(user_email))
+            return self.cursor.fetchall() != []
         except Exception as e :
             return e
 

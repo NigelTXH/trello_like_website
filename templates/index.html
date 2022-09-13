@@ -95,54 +95,60 @@
     <div class="task_box">
         {% for task in tasks %}
             <div class="miniature_card">
-                <a href="/delete/{{task[0]}}">Delete</a>
-                <a href="/update/{{task[0]}}">Edit</a>
-                {% if task[6] == "To do" %}
-                    <div><i class="fa fa-exclamation-circle" style="color:red; margin-top: 5px;"></i></div>
-                {% elif task[6] == "Doing" %}
-                    <div><i class="fa fa-ellipsis-h" style="color: yellow; margin-top: 5px;"></i></div>
-                {% else %}
-                    <div><i class="fa fa-check" style="color:green; margin-top: 5px;"></i></div>
-                {% endif %}
-                <div class="card_text">
-					<h3 class="name">{{task[1]}}</h3>
+                <div class="back_facing">
+                    <p class="description">{{task[5]}}</p>
                     <br>
-				</div>
-                <div class="tag_type_priority">
-					<i class="fa fa-id-card"></i>
-					<span class="quote2">Type: {{task[13]}}</span>
-                    <br>
-                    <i class="fa fa-tags"></i>
-					<span class="quote2">Tag: {{task[2]}}</span>
-                    <br>
-					<i class="fa fa-calendar"></i>
-					<span class="quote2">Priority: {{task[3]}}</span>
-                    <br>
-					<i class="fa fa-user-circle"></i>
-					<span class="quote2">Assignee: {{task[11]}}</span>
-                    <br>
-                    <div class="line">
-                        {% if task[4] == "1" %}
-                            <span class="color-1"></span>
-                        {% elif task[4] == "2" %}
-                            <span class="color-1"></span>
-                            <span class="color-2"></span>
-                        {% elif task[4] == "3" %}
-                            <span class="color-1"></span>
-                            <span class="color-2"></span>
-                            <span class="color-3"></span>
-                        {% elif task[4] == "4" %}
-                            <span class="color-1"></span>
-                            <span class="color-2"></span>
-                            <span class="color-3"></span>
-                            <span class="color-4"></span>
-                        {% else %}
-                            <span class="color-1"></span>
-                            <span class="color-2"></span>
-                            <span class="color-3"></span>
-                            <span class="color-4"></span>
-                            <span class="color-5"></span>
-                        {% endif %}
+                    <a href="/delete/{{task[0]}}">Delete</a>
+                    <a href="/update/{{task[0]}}">Edit</a>
+                </div>
+                <div class="front_facing">
+                    {% if task[6] == "To do" %}
+                        <div><i class="fa fa-exclamation-circle" style="color:red; margin-top: 5px;"></i></div>
+                    {% elif task[6] == "Doing" %}
+                        <div><i class="fa fa-ellipsis-h" style="color: yellow; margin-top: 5px;"></i></div>
+                    {% else %}
+                        <div><i class="fa fa-check" style="color:green; margin-top: 5px;"></i></div>
+                    {% endif %}
+                    <div class="card_text">
+                        <h3 class="name">{{task[1]}}</h3>
+                        <br>
+                    </div>
+                    <div class="tag_type_priority">
+                        <i class="fa fa-id-card"></i>
+                        <span class="quote2">Type: {{task[13]}}</span>
+                        <br>
+                        <i class="fa fa-tags"></i>
+                        <span class="quote2">Tag: {{task[2]}}</span>
+                        <br>
+                        <i class="fa fa-calendar"></i>
+                        <span class="quote2">Priority: {{task[3]}}</span>
+                        <br>
+                        <i class="fa fa-user-circle"></i>
+                        <span class="quote2">Assignee: {{task[11]}}</span>
+                        <br>
+                        <div class="line">
+                            {% if task[4] == "1" %}
+                                <span class="color-1"></span>
+                            {% elif task[4] == "2" %}
+                                <span class="color-1"></span>
+                                <span class="color-2"></span>
+                            {% elif task[4] == "3" %}
+                                <span class="color-1"></span>
+                                <span class="color-2"></span>
+                                <span class="color-3"></span>
+                            {% elif task[4] == "4" %}
+                                <span class="color-1"></span>
+                                <span class="color-2"></span>
+                                <span class="color-3"></span>
+                                <span class="color-4"></span>
+                            {% else %}
+                                <span class="color-1"></span>
+                                <span class="color-2"></span>
+                                <span class="color-3"></span>
+                                <span class="color-4"></span>
+                                <span class="color-5"></span>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>

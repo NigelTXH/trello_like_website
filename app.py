@@ -1,7 +1,17 @@
 from flask import Flask, render_template, url_for, request, redirect
+from flask_mail import Mail, Message
 import db
 appDb = db.Database()
 app = Flask(__name__)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'mytestfunct@gmail.com'
+app.config['MAIL_PASSWORD'] = 'fyokeubxxuekydyn'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_DEFAULT_SENDER'] = 'mytestfunct@gmail.com'
+mail = Mail(app)
 
 @app.route("/", methods=['POST', 'GET'])
 def product_backlog():
@@ -55,5 +65,52 @@ def delete(id):
     except:
         return 'There was a problem deleting that task'
 
+@app.route("/forgotpassword", methods=['GET', 'POST'])
+def forgot_password():
+    error = None
+    if request.method == 'POST':
+        if not appDb.check_email(request.form.get("email")):
+            error = "Invalid email"
+        else:
+            msg = Message('Scrum King Password', sender = 'mytestfunct@gmail.com', recipients = [request.form.get("email")])
+            msg.body = "Your password is: "+appDb.fetch_password(request.form.get("email"))+""        
+            mail.send(msg)
+            return redirect("/login")
+    return render_template('forgotpassword.html', error=error)
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_task(id):
+    users = appDb.all_users()
+    details = appDb.select_card(id)
+    if request.method == "POST":
+        card_name = request.form.get("taskname")    
+        card_tag = request.form.get("tasktag")   
+        card_priority = request.form.get("taskpriority")
+        card_storypoint = request.form.get("taskstorypoint")
+        card_description = request.form.get("taskdescription") 
+        card_status = request.form.get("taskstatus")
+        card_type = request.form.get("tasktype")
+        if  request.form.get("taskassignee") == "":
+            card_assignee = None
+        else:
+             card_assignee = request.form.get("taskassignee")
+        try:
+            appDb.update_card("card_name", card_name, id)
+            appDb.update_card("card_tag", card_tag, id)
+            appDb.update_card("card_type", card_type, id)
+            appDb.update_card("card_priority", card_priority, id)
+            appDb.update_card("card_storypoint", card_storypoint, id)
+            appDb.update_card("card_description", card_description, id)
+            appDb.update_card("card_status", card_status, id)
+            appDb.update_card("card_assignee", card_assignee, id)
+            return redirect("/")
+        except:
+            return "There was an issue addind your task!"
+    else:
+        return render_template("update.html", details=details, users=users)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+    #appDb.clean_db()
