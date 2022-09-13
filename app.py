@@ -4,14 +4,13 @@ import db
 appDb = db.Database()
 app = Flask(__name__)
 
-mail= Mail(app)
-
-app.config['MAIL_SERVER']='smtp-mail.outlook.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'mytestfunc@outlook.com'
-app.config['MAIL_PASSWORD'] = 'FIT_2101'
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'mytestfunct@gmail.com'
+app.config['MAIL_PASSWORD'] = 'fyokeubxxuekydyn'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_DEFAULT_SENDER'] = 'mytestfunct@gmail.com'
 mail = Mail(app)
 
 @app.route("/", methods=['POST', 'GET'])
@@ -70,12 +69,11 @@ def delete(id):
 def forgot_password():
     error = None
     if request.method == 'POST':
-        print(appDb.check_email(request.form.get("email")))
-        if appDb.check_email(request.form.get("email")) is None :
+        if not appDb.check_email(request.form.get("email")):
             error = "Invalid email"
         else:
-            msg = Message('Scrum King Password', sender = 'mytestfunc@outlook.com', recipients = [request.form.get("email")])
-            msg.body = "Your password: "+appDb.fetch_password(request.form.get("email"))+""
+            msg = Message('Scrum King Password', sender = 'mytestfunct@gmail.com', recipients = [request.form.get("email")])
+            msg.body = "Your password is: "+appDb.fetch_password(request.form.get("email"))+""        
             mail.send(msg)
             return redirect("/login")
     return render_template('forgotpassword.html', error=error)
@@ -115,3 +113,4 @@ def update_task(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+    #appDb.clean_db()

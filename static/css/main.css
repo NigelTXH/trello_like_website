@@ -469,11 +469,11 @@ color: #868e94;
 }
 .miniature_card:hover .front_facing{
   transform: translateY(150%);
-  transition: 500ms ease;
+  transition: 1s ease;
 }
 .miniature_card:hover .back_facing{
   transform: translateY(0%);
-  transition: 500ms ease;
+  transition: 1s ease;
   display: contents;
 }
 .miniature_card a{
