@@ -102,14 +102,16 @@ def update_task(id):
             appDb.update_card("card_storypoint", card_storypoint, id)
             appDb.update_card("card_description", card_description, id)
             appDb.update_card("card_status", card_status, id)
-            appDb.update_card("card_assignee", card_assignee, id)
+            appDb.update_card("user_username", card_assignee, id)
             return redirect("/")
         except:
-            return "There was an issue addind your task!"
+            return "There was an issue adding your task!"
     else:
         return render_template("update.html", details=details, users=users)
 
-
+@app.route('/kanban', methods=['GET', 'POST'])
+def kanban():
+    return render_template('kanban.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
