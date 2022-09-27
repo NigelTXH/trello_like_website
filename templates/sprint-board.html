@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Sprint Board</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block body %}
+<div class="product_backlog">
+    <h1>Sprint Board &#127939;</h1>
+    <input type="checkbox" id="add_task_check">
+    <label for="add_task_check" class="show_add_task_btn">Add Sprint</label>
+    <div class="add_task_form">
+      <label for="add_task_check" class="close-btn fas fa-times"></label>
+      <div class="text">Add Sprint</div>
+      <form method="POST">
+        <div class="txt_field">
+          <input type="text" name="taskname" required>
+          <span></span>
+          <label>Sprint Name</label>
+        </div>
+
+        <div class="calendar">
+            <h3>
+                Start Date:
+            </h3>
+            <input type="date" id="start_date" name="start_date" value=""
+            min="1997-01-01" max="2030-12-31" required>
+            <br> 
+            <h3>
+                End Date:
+            </h3>
+            <input type="date" id="end_date" name="end_date" value=""
+            min="1997-01-01" max="2030-12-31" required>
+            <br>      
+        </div>
+        
+        <br>
+        <input type="submit" value="Create Sprint">
+      </form>
+    </div>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>            
+    </label>
+    <div class="sidebar">
+        <header>Navigation Menu</header>
+        <ul>
+            <li><a href="http://127.0.0.1:5000/">Backlog &#128081</a></li>
+            <li><a href="http://127.0.0.1:5000/sprint-board">Sprint Board &#127939</a></li>
+            <li><a href="">Calender &#8987</a></li>
+            <li><a href="">Team Manager &#128587</a></li>
+        </ul>
+    </div>
+    <div class="task_box">
+        {% for task in tasks %}
+            <div class="miniature_card">
+                <div class="back_facing">
+                    <a href="/delete/{{task[0]}}">Delete</a>
+                    <a href="/update/{{task[0]}}">Kanba Sprint</a>
+                </div>
+                <div class="front_facing">
+                    <div class="card_text">
+                        <h3 class="name">{{task[1]}}</h3>
+                        <br>
+                    </div>
+                    <div class="tag_type_priority">
+                        
+                        <center> <span class="quote4" style="color:green">Days Remaining: 100</span></center>
+                        <br>
+
+                        <span class="quote3">Beginning Date:</span>
+                        <br>
+
+                        <span class="quote2">00/00/00</span>
+                        <br>
+   
+                        <span class="quote3">Ending Date:</span>
+                        <br>
+
+                        <span class="quote2">00/00/00</span>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -36,6 +36,26 @@ def product_backlog():
     else:
         tasks = appDb.all_cards()
         return render_template("index.html", tasks=tasks, users=users)
+    
+@app.route("/sprint-board", methods=['POST', 'GET'])
+def sprint_board():
+    users = appDb.all_users()
+    if request.method == "POST":
+        card_name = request.form.get("taskname")    
+        card_start_date = request.form.get("start_date")
+        card_end_date = request.form.get("end_date")
+        if  request.form.get("taskassignee") == "":
+            card_assignee = None
+        else:
+             card_assignee = request.form.get("taskassignee")
+        try:
+            
+            return redirect("/sprint-board")
+        except:
+            return "There was an issue addind your task!"
+    else:
+        task_sprint = appDb.all_cards()
+        return render_template("sprint-board.html", tasks=task_sprint,users=users)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
