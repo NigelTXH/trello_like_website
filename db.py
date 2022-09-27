@@ -210,7 +210,7 @@ class Database:
     """
         Creates a sprint
     """
-    def create_sprint(self,sprint_name,sprint_status,sprint_start=None,sprint_end=None):
+    def create_sprint(self,sprint_name,sprint_status=None,sprint_start=None,sprint_end=None):
         try:
             self.cursor.execute("insert into Sprint (sprint_name,sprint_status,sprint_start,sprint_end) VALUES (?,?,?,?)",(sprint_name,sprint_status,sprint_start,sprint_end))
         except Exception as e :
@@ -292,6 +292,6 @@ class Database:
 
 
 
-# db = Database()
-# db.clean_db()
+db = Database()
+db.clean_db()
 
