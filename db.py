@@ -240,6 +240,17 @@ class Database:
             return e
 
     """
+    Delete sprint
+    Example: 
+    """
+    def delete_sprint(self,sprint_id) :
+        try :
+            self.cursor.execute(
+                "Delete * from sprint where sprint_id = "+parse(sprint_id))
+        except Exception as e :
+            return e
+
+    """
     
     Universal update
     This command helps you build a query to execute a specific update if needed
