@@ -7,20 +7,22 @@
 
 {%block body %}
 <div class="kanban_page">
+    <button id="add_btn" data-target-modal="#todo_form">+ Add Task</button>
     <h1>Kanban Page</h1>
-    <div class="Todo">
-        <h2>To-do</h2>
-        <div>
-            <body>
-                ...
-            </body>
+    <body>
+        <div class="todo-container" >
+            <div class="status">
+                <h2>To-do &#10071</h2>
+                <div>
+                </div>
+            </div>
+            <div class="status">
+                <h2>Doing &#128172</h2>
+            </div>
+            <div class="status">
+                <h2>Done &#9989</h2>
         </div>
-    </div>
-    <div class="Doing">
-        <h2>Doing</h2>
-    </div>
-    <div class="Done">
-        <h2>Done</h2>
-    </div>
+</body>
+</div>
 </div>
 {% endblock %}

@@ -644,55 +644,71 @@ color: #868e94;
 }
 
 .kanban_page h1{
-  text-align: left;
-  padding-left: 20px;
-  padding-bottom: 5px;
-  font-size: 60px;
-  color: white;
-}
-
-.Todo{
-  float: left;
   text-align: center;
-  border: 3px solid white;
-  width:25%;
-  height: max-content;
-}
-
-.Todo h2{
   padding-left: 20px;
   padding-bottom: 5px;
-  border-bottom: 3px solid white;
-  font-size: 30px;
+  font-size: 40px;
   color: white;
 }
 
-.Doing{
-  float: left;
-  text-align: center;
+.kanban_page body{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-container
+{
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.status{
+  width: 33.33%;
+  position: relative;
   border: 3px solid white;
-  width:50%;
+  padding: 60px 1rem 0.5rem;
 }
 
-.Doing h2{
-  padding-left: 20px;
-  padding-bottom: 5px;
-  border-bottom: 3px solid white;
-  font-size: 30px;
-  color: white;
+.status h2{
+  position: absolute;
+  top: 0;
+  Left: 0;
+  margin: 0;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: black;
+  background-color: white;
+
+
 }
 
-.Done{
-  float: right;
-  text-align: center;
-  border: 3px solid white;
-  width:25%;
+#add_btn {
+  padding: 0.5rem 1rem;
+  background-color: black;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color:#ccc;
+  /* margin: 0.5rem 0; */
+  border-radius: 16px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  
 }
 
-.Done h2{
-  padding-left: 20px;
-  padding-bottom: 5px;
-  border-bottom: 3px solid white;
-  font-size: 30px;
-  color: white;
+#add_btn:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
 }
+
+
+
+
+
+
