@@ -39,23 +39,39 @@ def product_backlog():
     
 @app.route("/sprint-board", methods=['POST', 'GET'])
 def sprint_board():
+    error = None
     users = appDb.all_users()
+    task_sprint = appDb.all_sprint()
     if request.method == "POST":
         card_name = request.form.get("taskname")    
         card_start_date = request.form.get("start_date")
         card_end_date = request.form.get("end_date")
-        if  request.form.get("taskassignee") == "":
-            card_assignee = None
-        else:
-             card_assignee = request.form.get("taskassignee")
-        try:
-            
-            return redirect("/sprint-board")
-        except:
-            return "There was an issue addind your task!"
+        card_start_date_split = card_start_date.split("-")
+        card_end_date_split = card_end_date.split("-")
+        
+        card_start_year = int(card_start_date_split[0])
+        card_start_month = int(card_start_date_split[1])
+        card_start_day = int(card_start_date_split[2])
+        
+        card_end_year = int(card_end_date_split[0])
+        card_end_month = int(card_end_date_split[1])
+        card_end_day = int(card_end_date_split[2])
+        
+        if (card_start_year > card_end_year):
+            error = "Start year more than end year"
+        elif card_start_month > card_end_month:
+            error = "Start month more than end month"
+        elif card_start_day > card_end_day:
+            error = "Start day more than end day"
+        else: 
+            try:
+                appDb.create_sprint(card_name, sprint_start=card_start_date, sprint_end=card_end_date)
+                return redirect("/sprint-board")
+            except:
+                return "There was an issue addind your task!"
     else:
-        task_sprint = appDb.all_cards()
-        return render_template("sprint-board.html", tasks=task_sprint,users=users)
+        task_sprint = appDb.all_sprint()
+    return render_template("sprint-board.html",task_sprint=task_sprint,users=users, error = error)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
