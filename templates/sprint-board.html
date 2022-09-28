@@ -32,6 +32,9 @@
             </h3>
             <input type="date" id="end_date" name="end_date" value=""
             min="1997-01-01" max="2030-12-31" required>
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}
+            {% endif %}
             <br>      
         </div>
         
@@ -54,10 +57,10 @@
         </ul>
     </div>
     <div class="task_box">
-        {% for task in tasks %}
+        {% for task in task_sprint %}
             <div class="miniature_card">
                 <div class="back_facing">
-                    <a href="/delete/{{task[0]}}">Delete</a>
+                    <a href="/delete_sprint/">Delete</a>
                     <a href="/update/{{task[0]}}">Kanba Sprint</a>
                 </div>
                 <div class="front_facing">
@@ -73,13 +76,13 @@
                         <span class="quote3">Beginning Date:</span>
                         <br>
 
-                        <span class="quote2">00/00/00</span>
+                        <span class="quote2">{{task[2]}}</span>
                         <br>
    
                         <span class="quote3">Ending Date:</span>
                         <br>
 
-                        <span class="quote2">00/00/00</span>
+                        <span class="quote2">{{task[3]}}</span>
                         <br>
                     </div>
                 </div>
