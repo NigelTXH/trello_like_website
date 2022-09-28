@@ -235,7 +235,7 @@ class Database:
         try :
             self.cursor.execute(
                 "Select * from sprint")
-            return self.cursor.fetchall()[0]
+            return self.cursor.fetchall()
         except Exception as e :
             return e
 
@@ -246,7 +246,7 @@ class Database:
     def delete_sprint(self,sprint_id) :
         try :
             self.cursor.execute(
-                "Delete * from sprint where sprint_id = "+parse(sprint_id))
+                "Delete from sprint where sprint_id = "+str(sprint_id))
         except Exception as e :
             return e
 
