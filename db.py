@@ -5,6 +5,12 @@ Example:
     print(db.update_card("user_id","4",1))
 """
 
+"""
+#######################################################################################################################
+SPRINT 1
+#######################################################################################################################
+"""
+
 def parse(string):
     return '"' + string + '"'
 
@@ -168,6 +174,12 @@ class Database:
             return self.cursor.fetchall()[0]
         except Exception as e :
             return e
+
+    """
+    Fetches password of a user with email
+    Returns:
+        A string 
+    """
     
     def fetch_password(self, user_email) :
         try :
@@ -189,5 +201,97 @@ class Database:
         except Exception as e :
             return e
 
-#db = Database()
-#db.clean_db()
+    """
+    #######################################################################################################################
+    SPRINT 2
+    #######################################################################################################################
+    """
+
+    """
+        Creates a sprint
+    """
+    def create_sprint(self,sprint_name,sprint_status=None,sprint_start=None,sprint_end=None):
+        try:
+            self.cursor.execute("insert into Sprint (sprint_name,sprint_status,sprint_start,sprint_end) VALUES (?,?,?,?)",(sprint_name,sprint_status,sprint_start,sprint_end))
+        except Exception as e :
+            return e
+
+    """
+    Updates a sprint
+    Example: 
+    """
+    def update_sprint(self ,field, value, sprint_id) :
+        try :
+            self.cursor.execute(
+                "Update sprint set "+field+ " = '"+ str(value) +"' where sprint_id =" + str(sprint_id))
+        except Exception as e :
+            return e
+
+    """
+    Display all sprints
+    Example: 
+    """
+    def all_sprint(self) :
+        try :
+            self.cursor.execute(
+                "Select * from sprint")
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
+
+    """
+    Delete sprint
+    Example: 
+    """
+    def delete_sprint(self,sprint_id) :
+        try :
+            self.cursor.execute(
+                "Delete from sprint where sprint_id = "+str(sprint_id))
+        except Exception as e :
+            return e
+
+    """
+    
+    Universal update
+    This command helps you build a query to execute a specific update if needed
+    You will need information on what the table is called, what the column is called, etc,. This information
+    can be found in docs
+    
+    Example:
+        I want to update the email of the user whose username is "Nathan" to new@gmail.com
+            update("user","user_email","new@gmail.com","user_username","Nathan")
+    """
+
+    def update(self, db, field, value, row, row_cond):
+        try :
+            print("Update "+db+" set " + field + " = '" + str(value) + "' where " + row + " = " + str(row_cond))
+            self.cursor.execute(
+                "Update "+parse(db)+" set " + field + " = '" + str(value) + "' where " + row + " = " + parse(row_cond))
+        except Exception as e :
+            return e
+
+    """
+
+    Universal select
+    This command helps you build a query to execute a specific select if needed
+    You will need information on what the table is called, what the column is called, etc,. This information
+    can be found in docs
+
+    Example:
+        I want to update the email of the user whose username is "Nathan" to new@gmail.com
+            update("user","user_email","new@gmail.com","user_username","Nathan")
+    """
+
+    def select(self , db) :
+        try :
+            self.cursor.execute(
+                "Select * from " + db)
+            return self.cursor.fetchall()[0]
+        except Exception as e :
+            return e
+
+
+
+db = Database()
+db.clean_db()
+
