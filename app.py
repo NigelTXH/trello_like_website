@@ -100,6 +100,14 @@ def delete(id):
         return redirect('/')
     except:
         return 'There was a problem deleting that task'
+    
+@app.route('/remove/<int:id>/<int:sprint_id>')
+def remove(id, sprint_id):
+    try:
+        appDb.update_card("sprint_id", None , id)
+        return redirect(f"/kanban/{sprint_id}")
+    except:
+        return 'There was a problem removing that task'
 
 @app.route("/forgotpassword", methods=['GET', 'POST'])
 def forgot_password():
@@ -150,12 +158,10 @@ def kanban(id):
     tasks = appDb.all_cards()
     if request.method == "POST":
         task_id = request.form.get("add_task")
-        print(task_id)
         appDb.update_card("sprint_id", id, task_id)
         return redirect(f"/kanban/{id}")
     else:
-        print(tasks)
-        return render_template('kanban.html', tasks=tasks)
+        return render_template('kanban.html', tasks=tasks, id=id)
 
 if __name__ == "__main__":
     app.run(debug=True)

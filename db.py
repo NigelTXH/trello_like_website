@@ -12,7 +12,7 @@ SPRINT 1
 """
 
 def parse(string):
-    return '"' + string + '"'
+    return '"' + str(string) + '"'
 
 class Database:
     """
@@ -94,7 +94,6 @@ class Database:
             self.cursor.execute("insert into card (card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type,list_id,user_username,sprint_id) VALUES (?,?,?,?,?,?,?,?,?,?)",(card_name,card_tag,card_priority,card_storypoint,card_description,card_status,card_type,list_id,user_name,sprint_id))
         except Exception as e:
             return e
-
     """
     Updates
     Currently not so code friendly
@@ -104,11 +103,14 @@ class Database:
     """
     def update_card(self ,field, value, card_id) :
         try :
-            self.cursor.execute(
-                "Update card set "+field+ " = '"+ str(value) +"' where card_id =" + str(card_id))
+            if value != None:
+                self.cursor.execute(
+                    "Update card set "+field+ " = "+ parse(value) +" where card_id =" + str(card_id))
+            else:
+                self.cursor.execute(
+                    "Update card set "+field+ " = NULL  where card_id =" + str(card_id))
         except Exception as e :
             return e
-
     """
     Deletes a card
     Currently only allows deletion based on card_id

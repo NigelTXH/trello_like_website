@@ -248,6 +248,8 @@ input[type="submit"]:hover{
 }
 .product_backlog .sidebar{
   position: fixed;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
   right: -250px;
   width: 250px;
   height: 100%;
@@ -402,7 +404,7 @@ label #cancel{
   max-height: 90%;
   margin-top: 10px;
 }
-.task_box .miniature_card{
+.miniature_card{
   width: 290px;
   max-width: 290px;
   height: 260px;
@@ -693,6 +695,14 @@ color: #868e94;
   position: relative;
   border: 3px solid white;
   padding: 60px 1rem 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(150px, 0.5fr));
+  grid-row: 150px;
+  gap: 20px;
+  justify-items: left;
+  overflow: auto;
+  max-height: 90%;
+  margin-top: 10px;
 }
 
 .status h2{
