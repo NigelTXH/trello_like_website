@@ -248,6 +248,8 @@ input[type="submit"]:hover{
 }
 .product_backlog .sidebar{
   position: fixed;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
   right: -250px;
   width: 250px;
   height: 100%;
@@ -391,6 +393,9 @@ label #cancel{
 .add_task_form .description_field{
   position: relative;
 }
+.task_box::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
 .task_box {
   display: grid;
   grid-template-columns: repeat(4, minmax(150px, 0.5fr));
@@ -402,7 +407,7 @@ label #cancel{
   max-height: 90%;
   margin-top: 10px;
 }
-.task_box .miniature_card{
+.miniature_card{
   width: 290px;
   max-width: 290px;
   height: 260px;
@@ -662,10 +667,10 @@ color: #868e94;
 }
 
 .kanban_page h1{
-  text-align: center;
+  text-align: left;
   padding-left: 20px;
   padding-bottom: 5px;
-  font-size: 40px;
+  font-size: 60px;
   color: white;
 }
 
@@ -678,7 +683,11 @@ color: #868e94;
 
 .todo-container
 {
-  height: 80vh;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  height: 90vh;
   display: flex;
   justify-content: center;
  
@@ -687,8 +696,20 @@ color: #868e94;
 .status{
   width: 33.33%;
   position: relative;
-  border: 3px solid white;
+  border: 3px solid black;
   padding: 60px 1rem 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(150px, 0.5fr));
+  grid-row: 150px;
+  gap: 20px;
+  justify-items: left;
+  overflow: auto;
+  max-height: 90%;
+  margin-top: 10px;
+}
+
+.status::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
 }
 
 .status h2{
@@ -698,34 +719,47 @@ color: #868e94;
   margin: 0;
   width: 100%;
   padding: 0.5rem 1rem;
-  color: black;
-  background-color: white;
-
-
-}
-
-#add_btn {
-  padding: 0.5rem 1rem;
+  color: white;
   background-color: black;
-  outline: none;
-  border: none;
-  font-size: 1rem;
-  color:#ccc;
-  /* margin: 0.5rem 0; */
-  border-radius: 16px;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
-  
+
+
 }
 
-#add_btn:hover {
+.show_add_task_btn2{
+  background-color: black;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  border-color: black;
+  position: absolute;
+  top: 25px;
+  left: 50%;
+}
+.show_add_task_btn2:hover{
   transform: scale(1.1);
   transition: 0.3s ease-in-out;
 }
-
-
+.kanban_page .return_button a{
+  background-color: black;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  border-color: black;
+  position: absolute;
+  top: 25px;
+  left: 63%;
+  text-decoration: none;
+}
+.kanban_page .return_button a:hover{
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
 
 
 
