@@ -208,4 +208,4 @@ def kanban(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-    appDb.clean_db()
+    #appDb.clean_db()
