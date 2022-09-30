@@ -286,12 +286,31 @@ class Database:
         try :
             self.cursor.execute(
                 "Select * from " + db)
-            return self.cursor.fetchall()[0]
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
+
+    """
+    Print all tasks associated with a sprint
+    Returns list of tuples [(),(),()]
+
+    Example:
+        I want to get all tasks associated with sprint 1
+            sprint_tasks(1)
+    """
+
+    def sprint_tasks(self , sprint_id) :
+        try :
+            self.cursor.execute(
+                "select * from card inner join sprint ON sprint.sprint_id = card.sprint_id where sprint.sprint_id = "+ str(sprint_id))
+            return self.cursor.fetchall()
         except Exception as e :
             return e
 
 
 
-db = Database()
-db.clean_db()
+
+# db = Database()
+# db.clean_db()
+
 
