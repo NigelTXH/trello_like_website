@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_mail import Mail, Message
 import db
+import datetime
 appDb = db.Database()
 app = Flask(__name__)
 
@@ -71,7 +72,36 @@ def sprint_board():
                 return "There was an issue addind your task!"
     else:
         task_sprint = appDb.all_sprint()
-    return render_template("sprint-board.html",task_sprint=task_sprint,users=users, error = error)
+    length = len(task_sprint)
+    list_of_days = []
+    for sprint in task_sprint:
+        
+        # get the start date and make it a date time object
+        card_start = sprint[2].split("-")
+        card_start_year = int(card_start[0])
+        card_start_month = int(card_start[1])
+        card_start_day = int(card_start[2])
+        card_start = datetime.datetime(card_start_year, card_start_month, card_start_day)
+        
+        # get the end date and make it a date time object
+        card_end = sprint[3].split("-")
+        card_end_year = int(card_end[0])
+        card_end_month = int(card_end[1])
+        card_end_day = int(card_end[2])
+        card_end = datetime.datetime(card_end_year, card_end_month, card_end_day)
+        
+        # check and return the corresponding number of days
+        today = datetime.date.today()
+        today_with_time = datetime.datetime(year=today.year, month=today.month, day=today.day)
+        if card_start > today_with_time:
+            list_of_days.append("Not started")
+        else:
+            days_left = (card_end - today_with_time).days
+            if days_left <= 0:
+                list_of_days.append("Done")
+            else:
+                list_of_days.append(f"Days Remaining: {days_left}")
+    return render_template("sprint-board.html",task_sprint=task_sprint,users=users, error = error, list_of_days=list_of_days, length=length)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -98,6 +128,15 @@ def delete(id):
     try:
         appDb.delete_card(id)
         return redirect('/')
+    except:
+        return 'There was a problem deleting that task'
+    
+@app.route('/delete_sprint/<int:id>')
+def delete_sprint(id):
+    try:
+        print(id)
+        appDb.delete_sprint(id)
+        return redirect('/sprint-board')
     except:
         return 'There was a problem deleting that task'
     
@@ -155,14 +194,18 @@ def update_task(id):
 
 @app.route('/kanban/<int:id>', methods=['GET', 'POST'])
 def kanban(id):
+    sprints = appDb.all_sprint()
+    for sprint in sprints:
+        if sprint[0] == id:
+            sprint_name = sprint[1]
     tasks = appDb.all_cards()
     if request.method == "POST":
         task_id = request.form.get("add_task")
         appDb.update_card("sprint_id", id, task_id)
         return redirect(f"/kanban/{id}")
     else:
-        return render_template('kanban.html', tasks=tasks, id=id)
+        return render_template('kanban.html', tasks=tasks, id=id, sprint_name=sprint_name)
 
 if __name__ == "__main__":
     app.run(debug=True)
-    #appDb.clean_db()
+    appDb.clean_db()

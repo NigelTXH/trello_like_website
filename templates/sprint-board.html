@@ -57,32 +57,32 @@
         </ul>
     </div>
     <div class="task_box">
-        {% for task in task_sprint %}
+        {% for task in range(length) %}
             <div class="miniature_card">
                 <div class="back_facing">
-                    <a href="/delete_sprint/">Delete</a>
-                    <a href="/kanban/{{task[0]}}">Kanban Board</a>
+                    <a href="/delete_sprint/{{task_sprint[task][0]}}">Delete</a>
+                    <a href="/kanban/{{task_sprint[task][0]}}">Kanban Board</a>
                 </div>
                 <div class="front_facing">
                     <div class="card_text">
-                        <h3 class="name">{{task[1]}}</h3>
+                        <h3 class="name">{{task_sprint[task][1]}}</h3>
                         <br>
                     </div>
                     <div class="tag_type_priority">
                         
-                        <center> <span class="quote4" style="color:green">Days Remaining: 100</span></center>
+                        <center> <span class="quote4" style="color:green">{{list_of_days[task]}}</span></center>
                         <br>
 
                         <span class="quote3">Beginning Date:</span>
                         <br>
 
-                        <span class="quote2">{{task[2]}}</span>
+                        <span class="quote2">{{task_sprint[task][2]}}</span>
                         <br>
    
                         <span class="quote3">Ending Date:</span>
                         <br>
 
-                        <span class="quote2">{{task[3]}}</span>
+                        <span class="quote2">{{task_sprint[task][3]}}</span>
                         <br>
                     </div>
                 </div>
