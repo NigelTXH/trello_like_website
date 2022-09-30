@@ -57,11 +57,11 @@ def sprint_board():
         card_end_month = int(card_end_date_split[1])
         card_end_day = int(card_end_date_split[2])
         
-        if (card_start_year > card_end_year):
+        if card_start_year > card_end_year:
             error = "Start year more than end year"
-        elif card_start_month > card_end_month:
+        elif card_start_month > card_end_month and card_start_year == card_end_year:
             error = "Start month more than end month"
-        elif card_start_day > card_end_day:
+        elif card_start_day > card_end_day and card_start_month == card_end_month:
             error = "Start day more than end day"
         else: 
             try:
@@ -145,9 +145,17 @@ def update_task(id):
     else:
         return render_template("update.html", details=details, users=users)
 
-@app.route('/kanban', methods=['GET', 'POST'])
-def kanban():
-    return render_template('kanban.html')
+@app.route('/kanban/<int:id>', methods=['GET', 'POST'])
+def kanban(id):
+    tasks = appDb.all_cards()
+    if request.method == "POST":
+        task_id = request.form.get("add_task")
+        print(task_id)
+        appDb.update_card("sprint_id", id, task_id)
+        return redirect(f"/kanban/{id}")
+    else:
+        print(tasks)
+        return render_template('kanban.html', tasks=tasks)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -7,22 +7,40 @@
 
 {%block body %}
 <div class="kanban_page">
-    <button id="add_btn" data-target-modal="#todo_form">+ Add Task</button>
     <h1>Kanban Page</h1>
-    <body>
-        <div class="todo-container" >
-            <div class="status">
-                <h2>To-do &#10071</h2>
-                <div>
-                </div>
+     <div class="todo-container" >
+        <div class="status">
+            <h2>To-do &#10071</h2>
+            <div>
             </div>
-            <div class="status">
-                <h2>Doing &#128172</h2>
-            </div>
-            <div class="status">
-                <h2>Done &#9989</h2>
         </div>
-</body>
+        <div class="status">
+            <h2>Doing &#128172</h2>
+        </div>
+        <div class="status">
+            <h2>Done &#9989</h2>
+    </div>
 </div>
+<input type="checkbox" id="add_task_check">
+<label for="add_task_check" class="show_add_task_btn2">+ Add Task</label>
+<div class="add_task_form">
+    <label for="add_task_check" class="close-btn fas fa-times"></label>
+    <div class="text">Add Tasks</div>
+    <br>
+    <form method="POST">
+      <div class="add_task">
+        <label for="add_task">All Tasks</label>
+        <select id="add_task" name="add_task">
+            {% for task in tasks %}
+                {% if task[12] == None %}
+                    <option value="{{ task[0] }}" selected>{{ task[1] }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+      </div>
+      <br>
+      <input type="submit" value="Add Tasks">
+    </form>
 </div>
+
 {% endblock %}
