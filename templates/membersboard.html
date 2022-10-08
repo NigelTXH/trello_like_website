@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Members Board</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+<script src="https://kit.fontawesome.com/47fc045697.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block body %}
+<div class="membersboard_page">
+    <h1>Team Manager &#128587</h1>
+    <label for="add_member" class="show_add_member_btn"> 
+        <a href="http://127.0.0.1:5000/signup ">+</a>     
+    </label>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>            
+    </label>
+    <div class="sidebar">
+        <header>Navigation Menu</header>
+        <ul>
+            <li><a href="http://127.0.0.1:5000/">Backlog &#128081</a></li>
+            <li><a href="http://127.0.0.1:5000/sprint-board">Sprint Board &#127939</a></li>
+            <li><a href="">Calender &#8987</a></li>
+            <li><a href="http://127.0.0.1:5000/membersboard">Team Manager &#128587</a></li>
+        </ul>
+    </div>
+    <div class="members_columns" >
+        {% for user in users %}
+        <div class="member_box">
+            <label for="personalPage" class="individual_user_btn">
+                <a href="http://127.0.0.1:5000/user_stats">
+                    <i class="fa-solid fa-circle-user fa-2xl" id="personal_page">
+                                {{ user[1] }}
+                    </i>
+                </a>
+            </label>  
+            <ul>
+                <li>10 hours</li>
+                <li>Contributions</li>
+            </ul>
+            <label for ="deleteMember" class="delete_member_btn">
+                <a href="/delete_user/{{user[0]}}">
+                    <i class="fa-regular fa-trash-can fa-2xl" id="trash"></i>
+                </a>
+            </label>            
+        </div> 
+        {% endfor %}   
+    </div>
+</div>
+{% endblock %}

@@ -206,6 +206,24 @@ def kanban(id):
     else:
         return render_template('kanban.html', tasks=tasks, id=id, sprint_name=sprint_name)
 
+@app.route('/membersboard',methods=['POST','GET'])
+def membersboard():
+    users = appDb.all_users()
+    return render_template("membersboard.html",users=users)
+
+@app.route('/delete_user/<int:id>')
+def delete_user(id):
+    try:
+        appDb.delete_user(id)
+        return redirect('/membersboard')
+    except:
+        return 'There was a problem deleting that user'
+
+@app.route('/user_stats',methods=['POST','GET'])
+def user_stats():
+    return render_template("user_stats.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
     #appDb.clean_db()
