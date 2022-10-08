@@ -774,6 +774,7 @@ color: #868e94;
   padding-bottom: 5px;
   font-size: 60px;
   color: white;
+  border-bottom:3px solid  white;
 }
 
 .show_add_member_btn a{
