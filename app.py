@@ -206,6 +206,10 @@ def kanban(id):
     else:
         return render_template('kanban.html', tasks=tasks, id=id, sprint_name=sprint_name)
 
+@app.route('/membersboard',methods=['POST','GET'])
+def membersboard():
+    return render_template("membersboard.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
     #appDb.clean_db()
