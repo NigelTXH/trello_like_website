@@ -7,7 +7,9 @@
 {% block body %}
 <div class="membersboard_page">
     <h1>Team Manager &#128587</h1>
-    <label for="add_member" class="show_add_member_btn"> + </label>
+    <label for="add_member" class="show_add_member_btn"> 
+        <a href="http://127.0.0.1:5000/signup ">+</a>     
+    </label>
     <input type="checkbox" id="check">
     <label for="check">
         <i class="fas fa-bars" id="btn"></i>
@@ -22,9 +24,10 @@
             <li><a href="http://127.0.0.1:5000/membersboard">Team Manager &#128587</a></li>
         </ul>
     </div>
-    <div class="members_columns">
+    <div class="members_columns" >
+        {% for user in users %}
         <div class="member_box">
-            <h2>Person 1 </h2>
+            <h2>{{ user[1] }}</h2>
             <ul>
                 <li>10 hours</li>
                 <li>Contributions</li>
@@ -33,7 +36,7 @@
                 <i class="fa-regular fa-trash-can fa-2xl" id="trash"></i>
             </label>
         </div> 
-        
+        {% endfor %}   
     </div>
 </div>
 {% endblock %}

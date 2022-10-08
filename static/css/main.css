@@ -776,13 +776,14 @@ color: #868e94;
   color: white;
 }
 
-.show_add_member_btn{
+.show_add_member_btn a{
   padding: 6px 12px;
   font-size: 55px;
   font-weight: 500;
   color: white;
   cursor: pointer;
   position: absolute;
+  text-decoration: none;
   top: 0px;
   left: 50%;
 }
@@ -912,3 +913,7 @@ label #cancel{
   transition: 0.3s ease-in-out;
 }
 
+.members_columns{
+  overflow: auto;
+  height: 90%;
+}

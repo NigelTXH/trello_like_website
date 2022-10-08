@@ -208,7 +208,8 @@ def kanban(id):
 
 @app.route('/membersboard',methods=['POST','GET'])
 def membersboard():
-    return render_template("membersboard.html")
+    users = appDb.all_users()
+    return render_template("membersboard.html",users=users)
 
 if __name__ == "__main__":
     app.run(debug=True)
