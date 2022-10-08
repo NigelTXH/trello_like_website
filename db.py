@@ -5,12 +5,6 @@ Example:
     print(db.update_card("user_id","4",1))
 """
 
-"""
-#######################################################################################################################
-SPRINT 1
-#######################################################################################################################
-"""
-
 def parse(string):
     return '"' + str(string) + '"'
 
@@ -25,6 +19,46 @@ class Database:
         self.cursor = cursor
         self.cursor.execute("PRAGMA foreign_keys = ON")
 
+    """
+
+    Universal update
+    This command helps you build a query to execute a specific update if needed
+    You will need information on what the table is called, what the column is called, etc,. This information
+    can be found in docs
+
+    Example:
+        I want to update the email of the user whose username is "Nathan" to new@gmail.com
+            update("user","user_email","new@gmail.com","user_username","Nathan")
+    """
+
+    def update(self , db , field , value , row , row_cond) :
+        try :
+            print("Update " + db + " set " + field + " = '" + str(value) + "' where " + row + " = " + str(row_cond))
+            self.cursor.execute(
+                "Update " + parse(db) + " set " + field + " = '" + str(value) + "' where " + row + " = " + parse(
+                    row_cond))
+        except Exception as e :
+            return e
+
+    """
+
+    Universal select
+    This command helps you build a query to execute a specific select if needed
+    You will need information on what the table is called, what the column is called, etc,. This information
+    can be found in docs
+
+    Example:
+        I want to update the email of the user whose username is "Nathan" to new@gmail.com
+            update("user","user_email","new@gmail.com","user_username","Nathan")
+    """
+
+    def select(self , db) :
+        try :
+            self.cursor.execute(
+                "Select * from " + db)
+            return self.cursor.fetchall( )
+        except Exception as e :
+            return e
 
     """
     Removes all records from all tables
@@ -32,6 +66,12 @@ class Database:
     def clean_db(self):
         sql = "DELETE from List; DELETE from card; DELETE from Sprint; DELETE from UserTimer;DELETE from sqlite_sequence;DELETE from UserWorkspace;DELETE from User;DELETE from Workspace;DELETE from sqlite_sequence"
         self.cursor.executescript(sql)
+
+    """
+    #######################################################################################################################
+    User
+    #######################################################################################################################
+    """
 
     """
     Registers a user into the database
@@ -74,6 +114,60 @@ class Database:
             return None
 
     """
+    Fetches all users 
+    Returns:
+        A list of tuples where each tuple is a user
+    """
+    def all_users(self) :
+        try :
+            self.cursor.execute(
+                "SELECT * from user")
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
+
+    """
+    Delete a user based on id
+    """
+    def delete_user(self, id) :
+        try :
+            self.cursor.execute(
+                "Delete from User where user_id = " + parse(id))
+        except Exception as e :
+            return e
+
+    """
+    Fetches password of a user with email
+    Returns:
+        A string 
+    """
+    def fetch_password(self , user_email) :
+        try :
+            self.cursor.execute("SELECT user_password from user where user_email = " + parse(user_email))
+            return self.cursor.fetchall( )[0][0]
+        except Exception as e :
+            return e
+
+    """
+        checks if user email is valid
+        Returns:
+        A tuple with information of a user
+    """
+    def check_email(self , user_email) :
+        try :
+            self.cursor.execute(
+                "SELECT * from user where user_email = " + parse(user_email))
+            return self.cursor.fetchall( ) != []
+        except Exception as e :
+            return e
+
+    """
+    #######################################################################################################################
+    Workspace
+    #######################################################################################################################
+    """
+
+    """
     Creates new workspace if workspace name is unique 
     """
     def create_workspace(self,work_name):
@@ -83,6 +177,12 @@ class Database:
             self.cursor.execute(sql)
         except Exception as e:
             return e
+
+    """
+    #######################################################################################################################
+    Task
+    #######################################################################################################################
+    """
 
     """
     Creates new task card
@@ -151,18 +251,6 @@ class Database:
         except Exception as e :
             return e
 
-    """
-    Fetches all users 
-    Returns:
-        A list of tuples where each tuple is a user
-    """
-    def all_users(self) :
-        try :
-            self.cursor.execute(
-                "SELECT * from user")
-            return self.cursor.fetchall()
-        except Exception as e :
-            return e
 
     """
     Fetches all information of a card
@@ -178,34 +266,8 @@ class Database:
             return e
 
     """
-    Fetches password of a user with email
-    Returns:
-        A string 
-    """
-    
-    def fetch_password(self, user_email) :
-        try :
-            self.cursor.execute("SELECT user_password from user where user_email = "+parse(user_email))
-            return self.cursor.fetchall()[0][0]
-        except Exception as e :
-            return e
-
-    """
-        checks if user email is valid
-        Returns:
-        A tuple with information of a user
-    """
-    def check_email(self, user_email) :
-        try :
-            self.cursor.execute(
-                "SELECT * from user where user_email = "+ parse(user_email))
-            return self.cursor.fetchall() != []
-        except Exception as e :
-            return e
-
-    """
     #######################################################################################################################
-    SPRINT 2
+    Sprint
     #######################################################################################################################
     """
 
@@ -252,45 +314,6 @@ class Database:
         except Exception as e :
             return e
 
-    """
-    
-    Universal update
-    This command helps you build a query to execute a specific update if needed
-    You will need information on what the table is called, what the column is called, etc,. This information
-    can be found in docs
-    
-    Example:
-        I want to update the email of the user whose username is "Nathan" to new@gmail.com
-            update("user","user_email","new@gmail.com","user_username","Nathan")
-    """
-
-    def update(self, db, field, value, row, row_cond):
-        try :
-            print("Update "+db+" set " + field + " = '" + str(value) + "' where " + row + " = " + str(row_cond))
-            self.cursor.execute(
-                "Update "+parse(db)+" set " + field + " = '" + str(value) + "' where " + row + " = " + parse(row_cond))
-        except Exception as e :
-            return e
-
-    """
-
-    Universal select
-    This command helps you build a query to execute a specific select if needed
-    You will need information on what the table is called, what the column is called, etc,. This information
-    can be found in docs
-
-    Example:
-        I want to update the email of the user whose username is "Nathan" to new@gmail.com
-            update("user","user_email","new@gmail.com","user_username","Nathan")
-    """
-
-    def select(self , db) :
-        try :
-            self.cursor.execute(
-                "Select * from " + db)
-            return self.cursor.fetchall()
-        except Exception as e :
-            return e
 
     """
     Print all tasks associated with a sprint
