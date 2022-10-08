@@ -219,6 +219,9 @@ def delete_user(id):
     except:
         return 'There was a problem deleting that user'
 
+@app.route('/user_stats',methods=['POST','GET'])
+def user_stats():
+    return render_template("user_stats.html")
 
 
 if __name__ == "__main__":

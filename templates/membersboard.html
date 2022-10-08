@@ -27,16 +27,22 @@
     <div class="members_columns" >
         {% for user in users %}
         <div class="member_box">
-            <h2>{{ user[1] }}</h2>
+            <label for="personalPage" class="individual_user_btn">
+                <a href="http://127.0.0.1:5000/user_stats">
+                    <i class="fa-solid fa-circle-user fa-2xl" id="personal_page">
+                                {{ user[1] }}
+                    </i>
+                </a>
+            </label>  
             <ul>
                 <li>10 hours</li>
                 <li>Contributions</li>
-            </ul>   
+            </ul>
             <label for ="deleteMember" class="delete_member_btn">
                 <a href="/delete_user/{{user[0]}}">
                     <i class="fa-regular fa-trash-can fa-2xl" id="trash"></i>
                 </a>
-            </label>
+            </label>            
         </div> 
         {% endfor %}   
     </div>

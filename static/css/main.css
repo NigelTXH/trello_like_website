@@ -901,12 +901,26 @@ label #cancel{
 }
 
 .fa-trash-can{
-  color: white;
+  color: red;
   cursor: pointer;
   position: relative;
   bottom: 100px;
   left: 500px;
 
+}
+
+.fa-trash-can:hover{
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
+
+.fa-circle-user{
+  font-family: "Poppins", sans-serif;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  top: 10px;
+  left: 10px;
 }
 
 .fa-trash-can:hover{
