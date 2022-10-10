@@ -376,10 +376,7 @@ class Database:
         except Exception as e :
             return e
 
-
-
-
-db = Database()
-db.clean_db()
+# db = Database()
+# db.clean_db()
 
 
