@@ -64,7 +64,7 @@ class Database:
     Removes all records from all tables
     """
     def clean_db(self):
-        sql = "DELETE from List; DELETE from card; DELETE from Sprint; DELETE from UserTimer;DELETE from sqlite_sequence;DELETE from UserWorkspace;DELETE from User;DELETE from Workspace;DELETE from sqlite_sequence"
+        sql = "Delete from card_time;Delete from card;Delete from Sprint;Delete from User;DELETE from sqlite_sequence"
         self.cursor.executescript(sql)
 
     """
@@ -332,10 +332,54 @@ class Database:
         except Exception as e :
             return e
 
+    """
+    #######################################################################################################################
+    Time Tracking
+    #######################################################################################################################
+    """
+
+    """
+    Fetches all time values for a specific card
+    """
+    def card_times(self, card_id):
+        try :
+            self.cursor.execute(
+                "SELECT * from card_time where card_id = "+ str(card_id))
+            return self.cursor.fetchall()
+        except Exception as e :
+            return e
+
+    """
+    Update values in card_time
+    """
+    def update_card_times(self, card_time_id,field,value):
+        try :
+            self.cursor.execute(
+                "Update card_time set "+field+ " = '"+ str(value) +"' where card_time_id =" + str(card_time_id))
+        except Exception as e :
+            return e
+
+    """
+    Does stop function for a task, adds a new record for said stop time
+    Add True boolean to the end of the argument to execute complete
+    
+   Example:
+        I click complete for task with card_id 1
+            task_stop(1,"xyztime","xyzhours",True)
+    """
+    def card_stop(self, card_id, card_time_stop=None,card_time_elapsed=None,complete = False):
+        try :
+            self.cursor.execute(
+                "insert into card_time (card_id,card_time_stop,card_time_elapsed) VALUES (?,?,?)",(card_id,card_time_stop,card_time_elapsed))
+            if complete:
+                self.cursor.execute("Update card set card_status = 'done' where card_id =" + str(card_id))
+        except Exception as e :
+            return e
 
 
 
-# db = Database()
-# db.clean_db()
+
+db = Database()
+db.clean_db()
 
 
