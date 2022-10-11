@@ -223,6 +223,9 @@ def delete_user(id):
 def user_stats():
     return render_template("user_stats.html")
 
+@app.route('/timer/<int:id>/<int:sprint>')
+def timer(id, sprint):
+    return redirect(f"/kanban/{sprint}")
 
 if __name__ == "__main__":
     app.run(debug=True)
