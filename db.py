@@ -339,44 +339,40 @@ class Database:
     """
 
     """
-    Fetches all time values for a specific card
+    Fetches timer of a card
+    Returns an integer
     """
-    def card_times(self, card_id):
+    def card_timer(self, card_id):
         try :
             self.cursor.execute(
-                "SELECT * from card_time where card_id = "+ str(card_id))
-            return self.cursor.fetchall()
+                "SELECT card_timer from card where card_id = "+ str(card_id))
+            return self.cursor.fetchall()[0][0]
         except Exception as e :
             return e
 
     """
-    Update values in card_time
+    Updates timer of a card
     """
-    def update_card_times(self, card_time_id,field,value):
+    def update_card_timer(self, card_id,card_timer):
         try :
             self.cursor.execute(
-                "Update card_time set "+field+ " = '"+ str(value) +"' where card_time_id =" + str(card_time_id))
+                "Update card set card_timer = "+ parse(card_timer) +" where card_id =" + str(card_id))
         except Exception as e :
             return e
 
     """
-    Does stop function for a task, adds a new record for said stop time
-    Add True boolean to the end of the argument to execute complete
-    
-   Example:
-        I click complete for task with card_id 1
-            task_stop(1,"xyztime","xyzhours",True)
+    Updates elapsed time of a card
     """
-    def card_stop(self, card_id, card_time_stop=None,card_time_elapsed=None,complete = False):
+    def update_card_elapsed(self, card_id,card_elapsed):
         try :
             self.cursor.execute(
-                "insert into card_time (card_id,card_time_stop,card_time_elapsed) VALUES (?,?,?)",(card_id,card_time_stop,card_time_elapsed))
-            if complete:
-                self.cursor.execute("Update card set card_status = 'done' where card_id =" + str(card_id))
+                "Update card set card_elapsed = "+ parse(card_elapsed) +" where card_id =" + str(card_id))
         except Exception as e :
             return e
+
 
 # db = Database()
 # db.clean_db()
+
 
 
