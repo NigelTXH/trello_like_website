@@ -223,6 +223,10 @@ def delete_user(id):
 def user_stats():
     return render_template("user_stats.html")
 
+@app.route('/timer/<int:id>')
+def timer(id):
+    pass
+    #return redirect()
 
 if __name__ == "__main__":
     app.run(debug=True)
