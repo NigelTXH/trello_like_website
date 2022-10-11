@@ -224,15 +224,15 @@ def delete_user(id):
 def user_stats():
     return render_template("user_stats.html")
 
-counter = 662400
-running = False
 @app.route('/timer/<int:id>/<int:sprint>')
 def timer(id, sprint):
+    counter = 662400
+    running = False
     card = appDb.select_card(id)
     def counter_label(label):
         def count():
             if running:
-                global counter
+                nonlocal counter
 
                 # To manage the initial delay.
                 if counter==662400:		
@@ -258,7 +258,7 @@ def timer(id, sprint):
 
     # start function of the stopwatch
     def Start(label):
-        global running
+        nonlocal running
         running=True
         counter_label(label)
         start['state']='disabled'
@@ -267,7 +267,7 @@ def timer(id, sprint):
 
     # Stop function of the stopwatch
     def Stop():
-        global running
+        nonlocal running
         start['state']='normal'
         stop['state']='disabled'
         reset['state']='normal'
@@ -275,7 +275,7 @@ def timer(id, sprint):
 
     # Reset function of the stopwatch
     def Reset(label):
-        global counter
+        nonlocal counter
         counter=662400
 
         # If rest is pressed after pressing stop.
