@@ -226,7 +226,10 @@ def user_stats():
 
 @app.route('/timer/<int:id>/<int:sprint>')
 def timer(id, sprint):
-    counter = 662400
+    if int(appDb.card_timer(id)) == 0:
+        counter = int(appDb.card_timer(id)) + 662400
+    else:
+        counter = int(appDb.card_timer(id))
     running = False
     card = appDb.select_card(id)
     def counter_label(label):
@@ -268,16 +271,18 @@ def timer(id, sprint):
     # Stop function of the stopwatch
     def Stop():
         nonlocal running
+        nonlocal counter
         start['state']='normal'
         stop['state']='disabled'
         reset['state']='normal'
         running = False
+        appDb.update_card_timer(id, counter-1)
 
     # Reset function of the stopwatch
     def Reset(label):
         nonlocal counter
         counter=662400
-
+    
         # If rest is pressed after pressing stop.
         if running==False:	
             reset['state']='disabled'
@@ -292,7 +297,7 @@ def timer(id, sprint):
 
     # Fixing the window size.
     root.minsize(width=250, height=70)
-    label = Tkinter.Label(root, text="Welcome!", fg="black", font="Verdana 30 bold")
+    label = Tkinter.Label(root, text=f"{card[1]}", fg="black", font="Verdana 30 bold")
     label.pack()
     f = Tkinter.Frame(root)
     start = Tkinter.Button(f, text='Start', width=6, command=lambda:Start(label))
@@ -304,7 +309,8 @@ def timer(id, sprint):
     reset.pack(side="left")
     root.mainloop()
     gc.collect()
-    return redirect(f"/kanban/{sprint}")
+    return redirect(f"/")
+    #return redirect(f"/kanban/{sprint}")
 
 if __name__ == "__main__":
     app.run(debug=True)
