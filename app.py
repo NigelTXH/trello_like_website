@@ -267,6 +267,8 @@ def timer(id, sprint):
         start['state']='disabled'
         stop['state']='normal'
         reset['state']='normal'
+        complete['state'] = 'normal'
+        appDb.update_card("card_status", "Doing", id)
 
     # Stop function of the stopwatch
     def Stop():
@@ -291,6 +293,20 @@ def timer(id, sprint):
         # If reset is pressed while the stopwatch is running.
         else:			
             label['text']='Starting...'
+            
+    def Complete(label):
+        nonlocal running
+        nonlocal counter
+        start['state']='disabled'
+        stop['state']='disabled'
+        reset['state']='disabled'
+        running = False
+        appDb.update_card_timer(id, counter-1)
+        date = str(datetime.date.today())
+        appDb.update_card_elapsed(id, date)
+        appDb.update_card("card_status", "Done", id)
+        
+        
 
     root = Tkinter.Tk()
     root.title(f"{card[1]}")
@@ -303,14 +319,15 @@ def timer(id, sprint):
     start = Tkinter.Button(f, text='Start', width=6, command=lambda:Start(label))
     stop = Tkinter.Button(f, text='Stop',width=6,state='disabled', command=Stop)
     reset = Tkinter.Button(f, text='Reset',width=6, state='disabled', command=lambda:Reset(label))
+    complete = Tkinter.Button(f, text='Complete',width=6, state='disabled', command=lambda:Complete(label))
     f.pack(anchor = 'center',pady=5)
     start.pack(side="left")
     stop.pack(side ="left")
     reset.pack(side="left")
+    complete.pack(side="left")
     root.mainloop()
     gc.collect()
-    return redirect(f"/")
-    #return redirect(f"/kanban/{sprint}")
+    return redirect(f"/kanban/{sprint}")
 
 if __name__ == "__main__":
     app.run(debug=True)
