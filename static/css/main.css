@@ -410,8 +410,8 @@ label #cancel{
 .miniature_card{
   width: 290px;
   max-width: 290px;
-  height: 260px;
-  max-height: 260px;
+  height: 310px;
+  max-height: 310px;
   background-color: #fff;
   justify-content: left;
   align-items: left;

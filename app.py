@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_mail import Mail, Message
 import db
 import datetime
+import tkinter as Tkinter
+import gc
 appDb = db.Database()
 app = Flask(__name__)
 
@@ -17,26 +19,26 @@ mail = Mail(app)
 @app.route("/", methods=['POST', 'GET'])
 def product_backlog():
     users = appDb.all_users()
+    sprints = appDb.all_sprint()
     if request.method == "POST":
         card_name = request.form.get("taskname")    
         card_tag = request.form.get("tasktag")   
         card_priority = request.form.get("taskpriority")
         card_storypoint = request.form.get("taskstorypoint")
         card_description = request.form.get("taskdescription") 
-        card_status = request.form.get("taskstatus")
         card_type = request.form.get("tasktype")
         if  request.form.get("taskassignee") == "":
             card_assignee = None
         else:
              card_assignee = request.form.get("taskassignee")
         try:
-            appDb.create_card(card_name, card_tag, card_priority, card_storypoint, card_description, card_status, card_type, None, card_assignee)
+            appDb.create_card(card_name, card_tag, card_priority, card_storypoint, card_description, "To do", card_type, None, card_assignee)
             return redirect("/")
         except:
             return "There was an issue addind your task!"
     else:
         tasks = appDb.all_cards()
-        return render_template("index.html", tasks=tasks, users=users)
+        return render_template("index.html", tasks=tasks, users=users, sprints=sprints)
     
 @app.route("/sprint-board", methods=['POST', 'GET'])
 def sprint_board():
@@ -134,7 +136,6 @@ def delete(id):
 @app.route('/delete_sprint/<int:id>')
 def delete_sprint(id):
     try:
-        print(id)
         appDb.delete_sprint(id)
         return redirect('/sprint-board')
     except:
@@ -171,7 +172,6 @@ def update_task(id):
         card_priority = request.form.get("taskpriority")
         card_storypoint = request.form.get("taskstorypoint")
         card_description = request.form.get("taskdescription") 
-        card_status = request.form.get("taskstatus")
         card_type = request.form.get("tasktype")
         if  request.form.get("taskassignee") == "":
             card_assignee = None
@@ -184,7 +184,6 @@ def update_task(id):
             appDb.update_card("card_priority", card_priority, id)
             appDb.update_card("card_storypoint", card_storypoint, id)
             appDb.update_card("card_description", card_description, id)
-            appDb.update_card("card_status", card_status, id)
             appDb.update_card("user_username", card_assignee, id)
             return redirect("/")
         except:
@@ -225,6 +224,107 @@ def user_stats():
 
 @app.route('/timer/<int:id>/<int:sprint>')
 def timer(id, sprint):
+    if int(appDb.card_timer(id)) == 0:
+        counter = int(appDb.card_timer(id)) + 662400
+    else:
+        counter = int(appDb.card_timer(id))
+    running = False
+    card = appDb.select_card(id)
+    def counter_label(label):
+        def count():
+            if running:
+                nonlocal counter
+
+                # To manage the initial delay.
+                if counter==662400:		
+                    display="Starting..."
+                else:
+                    tt = datetime.datetime.fromtimestamp(counter)
+                    string = tt.strftime("%H:%M:%S")
+                    display=string
+
+                label['text']=display # Or label.config(text=display)
+
+                # label.after(arg1, arg2) delays by
+                # first argument given in milliseconds
+                # and then calls the function given as second argument.
+                # Generally like here we need to call the
+                # function in which it is present repeatedly.
+                # Delays by 1000ms=1 seconds and call count again.
+                label.after(1000, count)
+                counter += 1
+
+        # Triggering the start of the counter.
+        count()	
+
+    # start function of the stopwatch
+    def Start(label):
+        nonlocal running
+        running=True
+        counter_label(label)
+        start['state']='disabled'
+        stop['state']='normal'
+        reset['state']='normal'
+        complete['state'] = 'normal'
+        appDb.update_card("card_status", "Doing", id)
+
+    # Stop function of the stopwatch
+    def Stop():
+        nonlocal running
+        nonlocal counter
+        start['state']='normal'
+        stop['state']='disabled'
+        reset['state']='normal'
+        running = False
+        appDb.update_card_timer(id, counter-1)
+
+    # Reset function of the stopwatch
+    def Reset(label):
+        nonlocal counter
+        counter=662400
+    
+        # If rest is pressed after pressing stop.
+        if running==False:	
+            reset['state']='disabled'
+            label['text']='Welcome!'
+
+        # If reset is pressed while the stopwatch is running.
+        else:			
+            label['text']='Starting...'
+            
+    def Complete(label):
+        nonlocal running
+        nonlocal counter
+        start['state']='disabled'
+        stop['state']='disabled'
+        reset['state']='disabled'
+        running = False
+        appDb.update_card_timer(id, counter-1)
+        date = str(datetime.date.today())
+        appDb.update_card_elapsed(id, date)
+        appDb.update_card("card_status", "Done", id)
+        
+        
+
+    root = Tkinter.Tk()
+    root.title(f"{card[1]}")
+
+    # Fixing the window size.
+    root.minsize(width=250, height=70)
+    label = Tkinter.Label(root, text=f"{card[1]}", fg="black", font="Verdana 30 bold")
+    label.pack()
+    f = Tkinter.Frame(root)
+    start = Tkinter.Button(f, text='Start', width=6, command=lambda:Start(label))
+    stop = Tkinter.Button(f, text='Stop',width=6,state='disabled', command=Stop)
+    reset = Tkinter.Button(f, text='Reset',width=6, state='disabled', command=lambda:Reset(label))
+    complete = Tkinter.Button(f, text='Complete',width=7, state='disabled', command=lambda:Complete(label))
+    f.pack(anchor = 'center',pady=5)
+    start.pack(side="left")
+    stop.pack(side ="left")
+    reset.pack(side="left")
+    complete.pack(side="left")
+    root.mainloop()
+    gc.collect()
     return redirect(f"/kanban/{sprint}")
 
 if __name__ == "__main__":

@@ -46,6 +46,22 @@
                         <i class="fa fa-user-circle"></i>
                         <span class="quote2">Assignee: {{task[11]}}</span>
                         <br>
+                        <i class="fa fa-rocket"></i>
+                        {% if task[12] == None %}
+                            <span class="quote2">Sprint: None</span>
+                        {% else %}
+                            <span class="quote2">Sprint: {{task[12]}}</span>
+                        {% endif %}
+                        <br>
+                        <i class="fa fa-hourglass-half"></i>
+                        {% if task[14] == 0 %}
+                            <span class="quote2">Timer: 0 Hrs 0 Min 0 Sec</span>
+                        {% else %}
+                            {% set time = task[14]|int() %}
+                            {% set time = time - 662400 %}
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                        {% endif %}
+                        <br>
                         <div class="line">
                             {% if task[4] == "1" %}
                                 <span class="color-1"></span>
@@ -112,6 +128,22 @@
                         <i class="fa fa-user-circle"></i>
                         <span class="quote2">Assignee: {{task[11]}}</span>
                         <br>
+                        <i class="fa fa-rocket"></i>
+                        {% if task[12] == None %}
+                            <span class="quote2">Sprint: None</span>
+                        {% else %}
+                            <span class="quote2">Sprint: {{task[12]}}</span>
+                        {% endif %}
+                        <br>
+                        <i class="fa fa-hourglass-half"></i>
+                        {% if task[14] == 0 %}
+                            <span class="quote2">Timer: 0 Hrs 0 Min 0 Sec</span>
+                        {% else %}
+                            {% set time = task[14]|int() %}
+                            {% set time = time - 662400 %}
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                        {% endif %}
+                        <br>
                         <div class="line">
                             {% if task[4] == "1" %}
                                 <span class="color-1"></span>
@@ -176,6 +208,22 @@
                         <br>
                         <i class="fa fa-user-circle"></i>
                         <span class="quote2">Assignee: {{task[11]}}</span>
+                        <br>
+                        <i class="fa fa-rocket"></i>
+                        {% if task[12] == None %}
+                            <span class="quote2">Sprint: None</span>
+                        {% else %}
+                            <span class="quote2">Sprint: {{task[12]}}</span>
+                        {% endif %}
+                        <br>
+                        <i class="fa fa-hourglass-half"></i>
+                        {% if task[14] == 0 %}
+                            <span class="quote2">Timer: 0 Hrs 0 Min 0 Sec</span>
+                        {% else %}
+                            {% set time = task[14]|int() %}
+                            {% set time = time - 662400 %}
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                        {% endif %}
                         <br>
                         <div class="line">
                             {% if task[4] == "1" %}
