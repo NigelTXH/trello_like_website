@@ -160,34 +160,6 @@
                 </select>
             </div>
         {% endif %}
-        {% if details[6] == "To do" %}
-            <div class="task_status">
-                <label for="status">Task Status</label>
-                <select id="status" name="taskstatus">
-                    <option value="To do" selected>To do</option>
-                    <option value="Doing">Doing</option>
-                    <option value="Done">Done</option>
-                </select>
-            </div>
-        {% elif details[6] == "Doing" %}
-            <div class="task_status">
-                <label for="status">Task Status</label>
-                <select id="status" name="taskstatus">
-                    <option value="To do">To do</option>
-                    <option value="Doing" selected>Doing</option>
-                    <option value="Done">Done</option>
-                </select>
-            </div>
-        {% else %}
-        <div class="task_status">
-            <label for="status">Task Status</label>
-            <select id="status" name="taskstatus">
-                <option value="To do">To do</option>
-                <option value="Doing">Doing</option>
-                <option value="Done" selected>Done</option>
-            </select>
-        </div>
-        {% endif %}
         <div class="task_assignee">
             <label for="assignee">Assign Too</label>
             <select id="assignee" name="taskassignee">

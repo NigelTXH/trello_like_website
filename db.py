@@ -64,7 +64,7 @@ class Database:
     Removes all records from all tables
     """
     def clean_db(self):
-        sql = "Delete from card_time;Delete from card;Delete from Sprint;Delete from User;DELETE from sqlite_sequence"
+        sql = "Delete from card;Delete from Sprint;Delete from User;DELETE from sqlite_sequence"
         self.cursor.executescript(sql)
 
     """

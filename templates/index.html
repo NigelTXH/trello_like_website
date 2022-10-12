@@ -57,14 +57,6 @@
                 <option value="5">5</option>
             </select>
         </div>
-        <div class="task_status">
-            <label for="status">Task Status</label>
-            <select id="status" name="taskstatus">
-                <option value="To do" selected>To do</option>
-                <option value="Doing">Doing</option>
-                <option value="Done">Done</option>
-            </select>
-        </div>
         <div class="task_assignee">
             <label for="assignee">Assign Too</label>
             <select id="assignee" name="taskassignee">
@@ -107,7 +99,7 @@
                     {% elif task[6] == "Doing" %}
                         <div><i class="fa fa-ellipsis-h" style="color:#CCCC00; margin-top: 5px;"></i></div>
                     {% else %}
-                        <div><i class="fa fa-check" style="color:green; margin-top: 5px;"></i></div>
+                        <div><i class="fa fa-check" style="color:green; margin-top: 5px;"></i><span class="quote2">&nbsp;&nbsp;Completed on {{task[9]}}</span></div>
                     {% endif %}
                     <div class="card_text">
                         <h3 class="name">{{task[1]}}</h3>
@@ -125,6 +117,22 @@
                         <br>
                         <i class="fa fa-user-circle"></i>
                         <span class="quote2">Assignee: {{task[11]}}</span>
+                        <br>
+                        <i class="fa fa-rocket"></i>
+                        {% if task[12] == None %}
+                            <span class="quote2">Sprint: None</span>
+                        {% else %}
+                            <span class="quote2">Sprint: {{task[12]}}</span>
+                        {% endif %}
+                        <br>
+                        <i class="fa fa-hourglass-half"></i>
+                        {% if task[14] == 0 %}
+                            <span class="quote2">Timer: 0 Hrs 0 Min 0 Sec</span>
+                        {% else %}
+                            {% set time = task[14]|int() %}
+                            {% set time = time - 662400 %}
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                        {% endif %}
                         <br>
                         <div class="line">
                             {% if task[4] == "1" %}
