@@ -122,7 +122,11 @@
                         {% if task[12] == None %}
                             <span class="quote2">Sprint: None</span>
                         {% else %}
-                            <span class="quote2">Sprint: {{task[12]}}</span>
+                            {% for sprint in sprints %}
+                                {% if task[12] == sprint[0] %}
+                                    <span class="quote2">Sprint: {{sprint[1]}}</span>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                         <br>
                         <i class="fa fa-hourglass-half"></i>
@@ -131,7 +135,7 @@
                         {% else %}
                             {% set time = task[14]|int() %}
                             {% set time = time - 662400 %}
-                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{(time // 60) - (60*(time // 3600))}} Min {{time % 60}} Sec</span>
                         {% endif %}
                         <br>
                         <div class="line">

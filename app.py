@@ -203,12 +203,13 @@ def kanban(id):
         appDb.update_card("sprint_id", id, task_id)
         return redirect(f"/kanban/{id}")
     else:
-        return render_template('kanban.html', tasks=tasks, id=id, sprint_name=sprint_name)
+        return render_template('kanban.html', tasks=tasks, id=id, sprint_name=sprint_name, sprints=sprints)
 
 @app.route('/membersboard',methods=['POST','GET'])
 def membersboard():
     users = appDb.all_users()
-    return render_template("membersboard.html",users=users)
+    tasks = appDb.all_cards()
+    return render_template("membersboard.html",users=users, tasks=tasks)
 
 @app.route('/delete_user/<int:id>')
 def delete_user(id):
