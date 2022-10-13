@@ -50,7 +50,11 @@
                         {% if task[12] == None %}
                             <span class="quote2">Sprint: None</span>
                         {% else %}
-                            <span class="quote2">Sprint: {{task[12]}}</span>
+                            {% for sprint in sprints %}
+                                {% if task[12] == sprint[0] %}
+                                    <span class="quote2">Sprint: {{sprint[1]}}</span>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                         <br>
                         <i class="fa fa-hourglass-half"></i>
@@ -132,7 +136,11 @@
                         {% if task[12] == None %}
                             <span class="quote2">Sprint: None</span>
                         {% else %}
-                            <span class="quote2">Sprint: {{task[12]}}</span>
+                            {% for sprint in sprints %}
+                                {% if task[12] == sprint[0] %}
+                                    <span class="quote2">Sprint: {{sprint[1]}}</span>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                         <br>
                         <i class="fa fa-hourglass-half"></i>
@@ -190,7 +198,7 @@
                     {% elif task[6] == "Doing" %}
                         <div><i class="fa fa-ellipsis-h" style="color: 	#CCCC00; margin-top: 5px;"></i></div>
                     {% else %}
-                        <div><i class="fa fa-check" style="color:green; margin-top: 5px;"></i></div>
+                    <div><i class="fa fa-check" style="color:green; margin-top: 5px;"></i><span class="quote2">&nbsp;&nbsp;Completed on {{task[9]}}</span></div>
                     {% endif %}
                     <div class="card_text">
                         <h3 class="name">{{task[1]}}</h3>
@@ -213,7 +221,11 @@
                         {% if task[12] == None %}
                             <span class="quote2">Sprint: None</span>
                         {% else %}
-                            <span class="quote2">Sprint: {{task[12]}}</span>
+                            {% for sprint in sprints %}
+                                {% if task[12] == sprint[0] %}
+                                    <span class="quote2">Sprint: {{sprint[1]}}</span>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                         <br>
                         <i class="fa fa-hourglass-half"></i>

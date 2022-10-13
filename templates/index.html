@@ -122,7 +122,11 @@
                         {% if task[12] == None %}
                             <span class="quote2">Sprint: None</span>
                         {% else %}
-                            <span class="quote2">Sprint: {{task[12]}}</span>
+                            {% for sprint in sprints %}
+                                {% if task[12] == sprint[0] %}
+                                    <span class="quote2">Sprint: {{sprint[1]}}</span>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                         <br>
                         <i class="fa fa-hourglass-half"></i>

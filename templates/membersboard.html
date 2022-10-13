@@ -35,8 +35,17 @@
                 </a>
             </label>  
             <ul>
-                <li>10 hours</li>
-                <li>Contributions</li>
+                {% set total_time = namespace(value=0) %}
+                {%for task in tasks%}
+                    {%if task[11] == user[1]%}
+                        <li>{{task[1]}}</li>
+                        {%set time = task[14]|int()%}
+                        {%if task[14] != 0%}
+                            {% set total_time.value = total_time.value + (time - 662400) %}
+                        {%endif%}
+                    {%endif%}
+                {%endfor%}
+                <li>Total time worked: {{total_time.value // 3600}} Hrs {{total_time.value // 60}} Min {{total_time.value % 60}} Sec</li>
             </ul>
             <label for ="deleteMember" class="delete_member_btn">
                 <a href="/delete_user/{{user[0]}}">
