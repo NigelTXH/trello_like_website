@@ -45,7 +45,7 @@
                         {%endif%}
                     {%endif%}
                 {%endfor%}
-                <li>Total time worked: {{total_time.value // 3600}} Hrs {{total_time.value // 60}} Min {{total_time.value % 60}} Sec</li>
+                <li>Total time worked: {{total_time.value // 3600}} Hrs {{(total_time.value // 60) - ((total_time.value // 3600)*60)}} Min {{total_time.value % 60}} Sec</li>
             </ul>
             <label for ="deleteMember" class="delete_member_btn">
                 <a href="/delete_user/{{user[0]}}">

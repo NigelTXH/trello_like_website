@@ -63,7 +63,7 @@
                         {% else %}
                             {% set time = task[14]|int() %}
                             {% set time = time - 662400 %}
-                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{(time // 60) - (60*(time // 3600))}} Min {{time % 60}} Sec</span>
                         {% endif %}
                         <br>
                         <div class="line">
@@ -149,7 +149,7 @@
                         {% else %}
                             {% set time = task[14]|int() %}
                             {% set time = time - 662400 %}
-                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{(time // 60) - (60*(time // 3600))}} Min {{time % 60}} Sec</span>
                         {% endif %}
                         <br>
                         <div class="line">
@@ -234,7 +234,7 @@
                         {% else %}
                             {% set time = task[14]|int() %}
                             {% set time = time - 662400 %}
-                            <span class="quote2">Timer: {{time // 3600}} Hrs {{time // 60}} Min {{time % 60}} Sec</span>
+                            <span class="quote2">Timer: {{time // 3600}} Hrs {{(time // 60) - (60*(time // 3600))}} Min {{time % 60}} Sec</span>
                         {% endif %}
                         <br>
                         <div class="line">
