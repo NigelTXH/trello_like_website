@@ -304,42 +304,7 @@ def timer(id, sprint):
         date = str(datetime.date.today())
         appDb.update_card_elapsed(id, date)
         appDb.update_card("card_status", "Done", id)
-        
-    @app.route("/graph/<int:id>")
-    def graph(id):
-        counter = 0
-        get_cards = appDb.all_cards()
-        for cards in get_cards:
-            if int(cards[12]) == id:
-                counter += 1
 
-        get_sprint = appDb.all_sprint()
-        for sprint in get_sprint:
-            if sprint[0] == id:
-                sprint_start = datetime.datetime.strptime(sprint[2], "%Y-%m-%d")
-                sprint_end = datetime.datetime.strptime(sprint[3], "%Y-%m-%d")
-                break
-
-        diff = sprint_end - sprint_start
-
-        data1 = [(cards[9],counter) for cards in get_cards if int(cards[12]) == id]
-        data2 = []
-
-        for i in range(len(data1)):
-            completed_story_point = 0
-            for cards in get_cards:
-                if (cards[6] == "Done") and (cards[12] == id) and (datetime.datetime.strptime(cards[9], "%Y-%m-%d") < sprint_start):
-                    completed_story_point += 1
-            add = (str(sprint_start.date()), data1[i][1] - completed_story_point)
-            sprint_start+=(diff/(counter-1))
-            completed_story_point = 0
-            data2.append(add)
-
-        labels = [row[0] for row in data2]
-        values = [row[1] for row in data2]
-
-        return render_template("graph.html", labels=labels, values=values)
-        
 
     root = Tkinter.Tk()
     root.title(f"{card[1]}")
@@ -361,6 +326,40 @@ def timer(id, sprint):
     root.mainloop()
     gc.collect()
     return redirect(f"/kanban/{sprint}")
+@app.route("/graph/<int:id>")
+def graph(id):
+    counter = 0
+    get_cards = appDb.all_cards()
+    for cards in get_cards:
+        if int(cards[12]) == id:
+            counter += 1
+
+    get_sprint = appDb.all_sprint()
+    for sprint in get_sprint:
+        if sprint[0] == id:
+            sprint_start = datetime.datetime.strptime(sprint[2], "%Y-%m-%d")
+            sprint_end = datetime.datetime.strptime(sprint[3], "%Y-%m-%d")
+            break
+
+    diff = sprint_end - sprint_start
+
+    data1 = [(cards[9],counter) for cards in get_cards if int(cards[12]) == id]
+    data2 = []
+
+    for i in range(len(data1)):
+        completed_story_point = 0
+        for cards in get_cards:
+            if (cards[6] == "Done") and (cards[12] == id) and (datetime.datetime.strptime(cards[9], "%Y-%m-%d") < sprint_start):
+                completed_story_point += 1
+        add = (str(sprint_start.date()), data1[i][1] - completed_story_point)
+        sprint_start+=(diff/(counter-1))
+        completed_story_point = 0
+        data2.append(add)
+
+    labels = [row[0] for row in data2]
+    values = [row[1] for row in data2]
+
+    return render_template("graph.html", labels=labels, values=values)
 
 if __name__ == "__main__":
     app.run(debug=True)
