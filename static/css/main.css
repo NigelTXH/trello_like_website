@@ -900,7 +900,7 @@ label #cancel{
   right: 30px;
 }
 
-label #individual_user_btn:hover{
+.members_columns i:hover{
   transform: scale(1,1);
   transition: 0.3s ease-in-out;
 
@@ -938,3 +938,103 @@ label #individual_user_btn:hover{
   overflow: auto;
   height: 90%;
 }
+
+/* Team Stats */
+
+.teamMembers_page{
+  background: linear-gradient(120deg, #8e44ad, #2980b9);
+  height: 100vh;
+}
+
+.teamMembers_page h1{
+  text-align: left;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  font-size: 60px;
+  color: white;
+  border-bottom:3px solid  white;
+}
+
+.sidebar{
+  position: fixed;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(120deg,#df9f15, #d44def);
+  transition: all .5s ease;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+}
+.sidebar header{
+  font-size: 25px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  line-height: 70px;
+  background-color: linear-gradient(120deg,#df9f15, #d44def);
+  user-select: none;
+  border-bottom: 2px solid black;
+}
+.sidebar ul li{
+  list-style: none;
+}
+.sidebar a{
+  text-decoration: none;
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 90px;
+  font-size: 21px;
+  color: white;
+  padding-left: 40px;
+  box-sizing: border-box;
+  border-top: 2px solid rgba(255,255,255,.1);
+  border-bottom: 2px solid black;
+}
+.sidebar a:hover{
+  padding-left: 50px;
+  color: orange;
+  transition: 0.4s ease-in-out;
+}
+#check{
+  display: none;
+}
+label #btn, label #cancel{
+  position: absolute;
+  cursor: pointer;
+  border-radius: 3px;
+}
+label #btn:hover, label #cancel:hover{
+  transform: scale(1.3);
+}
+label #btn{
+  right: 30px;
+  top: 25px;
+  font-size: 35px;
+  color: black;
+  padding: 6px 12px;
+  transition: all .5s;
+}
+label #cancel{
+  z-index: 1111;
+  right: -100px;
+  top: 25px;
+  font-size: 40px;
+  color: black;
+  padding: 4px 9px;
+  transition: all .5s ease;
+}
+#check:checked ~ .sidebar{
+  right: 0;
+}
+#check:checked ~ label #btn{
+  right: 250px;
+  opacity: 0;
+  pointer-events: none;
+}
+#check:checked ~ label #cancel{
+  right: 30px;
+}
+ 

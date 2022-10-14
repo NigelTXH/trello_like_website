@@ -219,9 +219,9 @@ def delete_user(id):
     except:
         return 'There was a problem deleting that user'
 
-@app.route('/user_stats',methods=['POST','GET'])
-def user_stats():
-    return render_template("user_stats.html")
+@app.route('/team_stats',methods=['POST','GET'])
+def team_stats():
+    return render_template("team_stats.html")
 
 @app.route('/timer/<int:id>/<int:sprint>')
 def timer(id, sprint):
