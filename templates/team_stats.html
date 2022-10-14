@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Team Stats</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+
+{% endblock %}
+{% block body %}
+<div class="teamMembers_page">
+    <h1>Team Stats &#8987</h1>
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>            
+    </label>
+    <div class="sidebar">
+        <header>Navigation Menu</header>
+        <ul>
+            <li><a href="http://127.0.0.1:5000/">Backlog &#128081</a></li>
+            <li><a href="http://127.0.0.1:5000/sprint-board">Sprint Board &#127939</a></li>
+            <li><a href="http://127.0.0.1:5000/team_stats">Team Stats &#8987</a></li>
+            <li><a href="http://127.0.0.1:5000/membersboard">Team Manager &#128587</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
