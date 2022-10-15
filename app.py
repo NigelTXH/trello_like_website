@@ -347,11 +347,7 @@ def graph(id):
 
     data1 = [(cards[9],counter2) for cards in get_cards if int(cards[12]) == id]
     data2 = []
-    data3 = [
-        ('123', 1000),
-        ('124', 1100),
-        ('125', 1200),
-    ]
+
 
     for i in range(len(data1)):
         completed_story_point = 0
