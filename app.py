@@ -329,10 +329,12 @@ def timer(id, sprint):
 @app.route("/graph/<int:id>")
 def graph(id):
     counter = 0
+    counter2 = 0
     get_cards = appDb.all_cards()
     for cards in get_cards:
         if int(cards[12]) == id:
             counter += 1
+            counter2 += int(cards[4])
 
     get_sprint = appDb.all_sprint()
     for sprint in get_sprint:
@@ -343,14 +345,14 @@ def graph(id):
 
     diff = sprint_end - sprint_start
 
-    data1 = [(cards[9],counter) for cards in get_cards if int(cards[12]) == id]
+    data1 = [(cards[9],counter2) for cards in get_cards if int(cards[12]) == id]
     data2 = []
 
     for i in range(len(data1)):
         completed_story_point = 0
         for cards in get_cards:
             if (cards[6] == "Done") and (cards[12] == id) and (datetime.datetime.strptime(cards[9], "%Y-%m-%d") < sprint_start):
-                completed_story_point += 1
+                completed_story_point += int(cards[4])
         add = (str(sprint_start.date()), data1[i][1] - completed_story_point)
         sprint_start+=(diff/(counter-1))
         completed_story_point = 0
