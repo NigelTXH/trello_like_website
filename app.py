@@ -348,10 +348,6 @@ def graph(id):
     data1 = [(cards[9],counter2) for cards in get_cards if int(cards[12]) == id]
     data2 = []
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 75edd5964964536e8c197a9874ac038ccfa69f74
     for i in range(len(data1)):
         completed_story_point = 0
         for cards in get_cards:
@@ -365,12 +361,8 @@ def graph(id):
     labels = [row[0] for row in data2]
     values = [row[1] for row in data2]
 
-<<<<<<< HEAD
-    return render_template("graph.html", labels=labels, values=values)
-=======
     v = (str(sprint_end.date()))
     return render_template("graph.html", labels=labels, values=values, counter2 = counter2, v = v)
->>>>>>> 75edd5964964536e8c197a9874ac038ccfa69f74
 
 if __name__ == "__main__":
     app.run(debug=True)
