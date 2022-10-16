@@ -221,7 +221,22 @@ def delete_user(id):
 
 @app.route('/team_stats',methods=['POST','GET'])
 def team_stats():
-    return render_template("team_stats.html")
+    users = []
+    hours_of_users = [0]
+    
+    cards = appDb.all_cards()
+    for card in cards:
+        if (card[11] not in users) and (card[11] != None):
+            users.append(card[11])
+    
+    hours_of_users *= len(users)
+    
+    for card in cards:
+        for user in users:
+            if card[11] == user and int(card[14]) != 0:
+                hours_of_users[users.index(user)] += int(card[14]) - 662420
+    
+    return render_template("team_stats.html", labels=users,values=hours_of_users)
 
 @app.route('/timer/<int:id>/<int:sprint>')
 def timer(id, sprint):
@@ -347,6 +362,7 @@ def graph(id):
 
     data1 = [(cards[9],counter2) for cards in get_cards if int(cards[12]) == id]
     data2 = []
+
 
     for i in range(len(data1)):
         completed_story_point = 0
