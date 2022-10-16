@@ -234,7 +234,7 @@ def team_stats():
     for card in cards:
         for user in users:
             if card[11] == user and int(card[14]) != 0:
-                hours_of_users[users.index(user)] += int(card[14]) - 662420
+                hours_of_users[users.index(user)] += int(card[14]) - 662400
     
     return render_template("team_stats.html", labels=users,values=hours_of_users)
 
