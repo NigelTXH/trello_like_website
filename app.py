@@ -347,9 +347,12 @@ def graph(id):
     counter2 = 0
     get_cards = appDb.all_cards()
     for cards in get_cards:
-        if int(cards[12]) == id:
-            counter += 1
-            counter2 += int(cards[4])
+        if cards[12] == None:
+            pass
+        else:
+            if int(cards[12]) == id:
+                counter += 1
+                counter2 += int(cards[4])
 
     get_sprint = appDb.all_sprint()
     for sprint in get_sprint:
@@ -360,7 +363,7 @@ def graph(id):
 
     diff = sprint_end - sprint_start
 
-    data1 = [(cards[9],counter2) for cards in get_cards if int(cards[12]) == id]
+    data1 = [(cards[9],counter2) for cards in get_cards if cards[12] == id]
     data2 = []
 
 
