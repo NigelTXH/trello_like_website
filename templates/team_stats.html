@@ -3,8 +3,9 @@
 {% block head %}
 <title>Team Stats</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
+
 {% block body %}
 <div class="teamMembers_page">
     <h1>Team Stats &#8987</h1>
@@ -22,5 +23,88 @@
             <li><a href="http://127.0.0.1:5000/membersboard">Team Manager &#128587</a></li>
         </ul>
     </div>
+    <canvas id="chart" width="400" height="400"></canvas>
+    <canvas id="chart2" width="400" height="400"></canvas>
 </div>
+<script>
+    const ctx = document.getElementById('chart').getContext('2d');
+    const chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'bar',
+        data: {
+        labels: {{labels | safe}},
+        datasets: [{
+            data: {{values | safe}},
+            backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+            ]
+        },]
+      },
+      // Configuration options go here
+      options: {
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        responsive: false,
+        scales: {
+          y: {
+            ticks: { color: 'white', beginAtZero: true }
+          },
+          x: {
+            ticks: { color: 'white', beginAtZero: true }
+          }
+        }
+      }
+    });
+
+    const ctx2 = document.getElementById('chart2').getContext('2d');
+    const chart2 = new Chart(ctx2, {
+      // The type of chart we want to create
+      type: 'doughnut',
+        data: {
+        labels: {{labels | safe}},
+        datasets: [{
+            data: {{values | safe}},
+            backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+            ]
+        },]
+      },
+      // Configuration options go here
+      options: {
+        plugins: {
+            legend: {
+                labels:{
+                  color:'white',
+                },
+                display: true
+            }
+        },
+        responsive: false,
+        scales: {
+          y: {
+            ticks: { color: 'white', beginAtZero: true },
+            display: false
+          },
+          x: {
+            ticks: { color: 'white', beginAtZero: true },
+            display: false
+          }
+        }
+      }
+    });
+
+    </script>
 {% endblock %}

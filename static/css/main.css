@@ -944,6 +944,11 @@ label #cancel{
 .teamMembers_page{
   background: linear-gradient(120deg, #8e44ad, #2980b9);
   height: 100vh;
+  overflow: auto;
+}
+
+.teamMembers_page::-webkit-scrollbar{
+  display: none; /* Safari and Chrome */
 }
 
 .teamMembers_page h1{
